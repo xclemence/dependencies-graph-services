@@ -17,7 +17,15 @@ namespace Dependencies.Graph.Models
 
         public string Creator { get; set; }
 
-        public DateTime CreationDate { get; set; } = DateTime.Now;
+        public string TargetFramework { get; set; }
+
+        public string TargetProcessor { get; set; }
+
+        public bool? IsDebug { get; set; }
+
+        public bool IsILOnly { get; set; }
+
+        public DateTime CreationDate { get; set; }
 
         public bool IsPartial { get; set; }
 
