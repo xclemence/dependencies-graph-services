@@ -16,7 +16,11 @@ namespace Dependencies.Graph.Queries
             isNative = assembly.IsNative,
             version = assembly.Version,
             creationDate = assembly.CreationDate,
-            creator = assembly.Creator
+            creator = assembly.Creator,
+            isDebug = assembly.IsDebug,
+            isILOnly = assembly.IsILOnly,
+            targetFramework = assembly.TargetFramework,
+            targetProcessor = assembly.TargetProcessor
         };
 
         internal static Assembly ToAssembly(this AssemblyGraph assembly) => new Assembly
@@ -26,7 +30,11 @@ namespace Dependencies.Graph.Queries
             IsNative = assembly.isNative,
             Version = assembly.version,
             CreationDate = assembly.creationDate,
-            Creator = assembly.creator
+            Creator = assembly.creator,
+            IsDebug = assembly.isDebug,
+            IsILOnly = assembly.isILOnly,
+            TargetFramework = assembly.targetProcessor,
+            TargetProcessor = assembly.targetProcessor
         };
 
         public static Query GetAddFullAssemblyQuery(this IEnumerable<Assembly> assemblies)

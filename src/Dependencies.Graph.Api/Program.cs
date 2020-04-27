@@ -11,6 +11,8 @@ namespace Dependencies.Graph.Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseKestrel()
+                .UseUrls("http://*:80")
                 .UseStartup<Startup>()
                 .ConfigureLogging(logging =>
                 {

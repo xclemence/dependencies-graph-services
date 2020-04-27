@@ -16,6 +16,14 @@ namespace Dependencies.Graph.Queries
 
         public string creator { get; set; }
 
+        public string targetFramework { get; set; }
+
+        public string targetProcessor { get; set; }
+
+        public bool? isDebug { get; set; }
+
+        public bool isILOnly { get; set; }
+
         public DateTime creationDate { get; set; }
     }
 }

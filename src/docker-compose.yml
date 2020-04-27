@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dependencies.Graph.Api/Dockerfile
+    ports: 
+      - 5001:80
     environment:
       - GraphConfig__Uri=bolt://db
     links: 
