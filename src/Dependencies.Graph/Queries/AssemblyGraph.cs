@@ -24,6 +24,8 @@ namespace Dependencies.Graph.Queries
 
         public bool isILOnly { get; set; }
 
+        public bool? isPartial { get; set; }
+
         public DateTime creationDate { get; set; }
     }
 }

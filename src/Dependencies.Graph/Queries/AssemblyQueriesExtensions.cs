@@ -33,8 +33,9 @@ namespace Dependencies.Graph.Queries
             Creator = assembly.creator,
             IsDebug = assembly.isDebug,
             IsILOnly = assembly.isILOnly,
-            TargetFramework = assembly.targetProcessor,
-            TargetProcessor = assembly.targetProcessor
+            TargetFramework = assembly.targetFramework,
+            TargetProcessor = assembly.targetProcessor,
+            IsPartial = assembly.isPartial ?? false
         };
 
         public static Query GetAddFullAssemblyQuery(this IEnumerable<Assembly> assemblies)
@@ -105,7 +106,11 @@ namespace Dependencies.Graph.Queries
             return (query: new Query(query, new { assemblyName }),
                     resultExtractor: x => new AssembliesTree
                     {
-                        Assemblies = x["nodes"].As<IList<INode>>().Select(x => x.To<AssemblyGraph>()).ToList(),
+                        Assemblies = x["nodes"].As<IList<INode>>().Select(x => {
+                            var item = x.To<AssemblyGraph>();
+                            item.isPartial = x.Labels.Contains("Partial");
+                            return item;
+                        }).ToList(),
                         References = x["references"].As<IList<IList<string>>>().GroupBy(x => x[0], x => x[1]).ToDictionary(x => x.Key, x => x.ToList())
                     });
         }
