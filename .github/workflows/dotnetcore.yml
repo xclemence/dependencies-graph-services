@@ -18,8 +18,11 @@ jobs:
       with:
         dotnet-version: 3.1.201
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore Dependencies.Graph.Services.sln
+      working-directory: src
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build Dependencies.Graph.Services.sln --configuration Release --no-restore
+      working-directory: src
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag Dependencies.Graph.Api:$(date +%s)
+      working-directory: src
