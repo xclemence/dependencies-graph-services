@@ -18,9 +18,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.201
-        source-url: https://nuget.pkg.github.com/xclemence/index.json
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     
     - name: Install dependencies
       run: dotnet restore Dependencies.Graph.Services.sln
@@ -35,6 +32,6 @@ jobs:
       working-directory: src
 
     - name: Publish nuget package
-      run: dotnet nuget push "*.nupkg"
+      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_ORG_KEY}} --no-symbols true --skip-duplicate
       working-directory: src/Dependencies.Graph.Dtos/bin/Release
 
