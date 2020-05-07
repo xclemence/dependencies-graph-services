@@ -32,6 +32,6 @@ jobs:
       working-directory: src
 
     - name: Publish nuget package
-      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_ORG_KEY}} --no-symbols true --skip-duplicate
+      run: dotnet nuget push "*.nupkg" -s https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_ORG_KEY}} --no-symbols true --skip-duplicate
       working-directory: src/Dependencies.Graph.Dtos/bin/Release
 
