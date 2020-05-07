@@ -19,10 +19,7 @@ jobs:
         dotnet-version: 3.1.201
     - name: Install dependencies
       run: dotnet restore
-      working-directory: src
     - name: Build
       run: dotnet build --configuration Release --no-restore
-      working-directory: src
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag Dependencies.Graph.Api:$(date +%s)
-      working-directory: src

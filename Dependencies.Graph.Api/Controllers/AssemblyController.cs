@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Dependencies.Graph.Api.Dtos;
+using Dependencies.Graph.Dtos;
 using Dependencies.Graph.Models;
 using Dependencies.Graph.Services;
 using Microsoft.AspNetCore.Mvc;

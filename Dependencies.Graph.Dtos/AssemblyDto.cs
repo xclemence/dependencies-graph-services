@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Dependencies.Graph.Api.Dtos
+namespace Dependencies.Graph.Dtos
 {
     [DebuggerDisplay("Name = {Name}")]
     public class AssemblyDto

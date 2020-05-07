@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using Dependencies.Graph.Api.Dtos;
+using Dependencies.Graph.Dtos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
