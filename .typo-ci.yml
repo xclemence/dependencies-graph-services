@@ -13,6 +13,7 @@ excluded_words:
   - typoci
   - sln
   - dotnetcore
+  - Dtos
   
 
 # Would you like filenames to also be spellchecked?
