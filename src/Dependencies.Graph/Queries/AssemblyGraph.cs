@@ -26,6 +26,8 @@ namespace Dependencies.Graph.Queries
 
         public bool? isPartial { get; set; }
 
+        public bool? hasEntryPoint { get; set; }
+
         public DateTime creationDate { get; set; }
     }
 }

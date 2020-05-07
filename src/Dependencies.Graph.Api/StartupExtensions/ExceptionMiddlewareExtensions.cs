@@ -1,11 +1,11 @@
 ﻿using System.Net;
-using Dependencies.Graph.Api.Dtos;
+using Dependencies.Graph.Dtos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Dependencies.Graph.Api.StatupExtensions
+namespace Dependencies.Graph.Api.StartupExtensions
 {
     public static class ExceptionMiddlewareExtensions
     {

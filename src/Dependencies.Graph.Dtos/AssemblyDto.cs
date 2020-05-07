@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Dependencies.Graph.Api.Dtos
+namespace Dependencies.Graph.Dtos
 {
     [DebuggerDisplay("Name = {Name}")]
     public class AssemblyDto
@@ -28,6 +28,8 @@ namespace Dependencies.Graph.Api.Dtos
         public DateTime CreationDate { get; set; }
 
         public bool IsPartial { get; set; }
+
+        public bool HasEntryPoint { get; set; }
 
         public List<string> AssembliesReferenced { get; set; }
     }

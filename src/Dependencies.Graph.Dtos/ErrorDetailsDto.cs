@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Dependencies.Graph.Api.Dtos
+namespace Dependencies.Graph.Dtos
 {
     public class ErrorDetailsDto
     {

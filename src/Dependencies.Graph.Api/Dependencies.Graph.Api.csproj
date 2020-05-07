@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dependencies.Graph.Dtos\Dependencies.Graph.Dtos.csproj" />
     <ProjectReference Include="..\Dependencies.Graph\Dependencies.Graph.csproj" />
   </ItemGroup>
 

@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Dependencies.Graph.Api.StatupExtensions;
+using Dependencies.Graph.Api.StartupExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

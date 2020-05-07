@@ -35,12 +35,13 @@ namespace Dependencies.Graph.Queries
             IsILOnly = assembly.isILOnly,
             TargetFramework = assembly.targetFramework,
             TargetProcessor = assembly.targetProcessor,
-            IsPartial = assembly.isPartial ?? false
+            IsPartial = assembly.isPartial ?? false,
+            HasEntryPoint = assembly.hasEntryPoint ?? false
         };
 
         public static Query GetAddFullAssemblyQuery(this IEnumerable<Assembly> assemblies)
         {
-            var formattedAssemblies = assemblies.Where(x => !x.IsPartial && !x.Name.EndsWith("exe"))
+            var formattedAssemblies = assemblies.Where(x => !x.IsPartial && !x.HasEntryPoint)
                                                 .Select(x => x.ToAssemblyGraph());
 
             var query = @"UNWIND $assemblies AS assembly
@@ -53,7 +54,7 @@ namespace Dependencies.Graph.Queries
 
         public static Query GetAddSoftwareQuery(this IEnumerable<Assembly> assemblies)
         {
-            var formattedAssemblies = assemblies.Where(x => x.Name.EndsWith("exe"))
+            var formattedAssemblies = assemblies.Where(x => x.HasEntryPoint)
                                                 .Select(x => x.ToAssemblyGraph());
 
             var query = @"UNWIND $assemblies AS assembly
@@ -109,6 +110,7 @@ namespace Dependencies.Graph.Queries
                         Assemblies = x["nodes"].As<IList<INode>>().Select(x => {
                             var item = x.To<AssemblyGraph>();
                             item.isPartial = x.Labels.Contains("Partial");
+                            item.hasEntryPoint = x.Labels.Contains("Software");
                             return item;
                         }).ToList(),
                         References = x["references"].As<IList<IList<string>>>().GroupBy(x => x[0], x => x[1]).ToDictionary(x => x.Key, x => x.ToList())
