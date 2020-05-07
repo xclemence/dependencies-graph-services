@@ -26,6 +26,3 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag Dependencies.Graph.Api:$(date +%s)
       working-directory: src
-    
-    
-
