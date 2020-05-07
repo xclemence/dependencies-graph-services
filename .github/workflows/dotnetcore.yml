@@ -30,8 +30,3 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies_graph_api:$(date +%s)
       working-directory: src
-
-    - name: Publish nuget package
-      run: dotnet nuget push "*.nupkg" -s https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_ORG_KEY}} --no-symbols true --skip-duplicate
-      working-directory: src/Dependencies.Graph.Dtos/bin/Release
-
