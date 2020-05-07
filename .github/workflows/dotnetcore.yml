@@ -20,7 +20,7 @@ jobs:
         dotnet-version: 3.1.201
         source-url: https://nuget.pkg.github.com/xclemence/index.json
       env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     
     - name: Install dependencies
       run: dotnet restore Dependencies.Graph.Services.sln
