@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Dependencies.Graph.Api.StatupExtensions
+namespace Dependencies.Graph.Api.StartupExtensions
 {
     public static class ExceptionMiddlewareExtensions
     {

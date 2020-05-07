@@ -5,7 +5,7 @@ using Dependencies.Graph.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Dependencies.Graph.Api.StatupExtensions
+namespace Dependencies.Graph.Api.StartupExtensions
 {
     public static class IServiceCollectionExtensionsons
     {
