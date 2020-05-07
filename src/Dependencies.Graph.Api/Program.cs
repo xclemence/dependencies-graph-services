@@ -20,7 +20,6 @@ namespace Dependencies.Graph.Api
                     logging.SetMinimumLevel(LogLevel.Trace);
                     logging.AddConsole();
                     logging.AddNLog();
-
                 });
     }
 }
