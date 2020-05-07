@@ -24,4 +24,6 @@ jobs:
       run: dotnet build Dependencies.Graph.Services.sln --configuration Release --no-restore
       working-directory: src
     - name: Build the Docker image
-      run: docker build . --file src/Dependencies.Graph.Api/Dockerfile --tag dependencies_graph_api:$(date +%s)
+      run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies_graph_api:$(date +%s)
+      working-directory: src
+
