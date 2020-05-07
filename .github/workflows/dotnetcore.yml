@@ -32,6 +32,6 @@ jobs:
       working-directory: src
 
     - name: Publish nuget package
-      run: dotnet nuget push "*.nupkg" --source "https://nuget.pkg.github.com/xclemence/index.json" 
+      run: dotnet nuget push "*.nupkg" --source "github" 
       working-directory: src/Dependencies.Graph.Dtos/bin/Release
 
