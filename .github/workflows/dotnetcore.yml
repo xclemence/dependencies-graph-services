@@ -28,7 +28,7 @@ jobs:
       working-directory: src
     
     - name: Test
-      run: dotnet test
+      run: dotnet test Dependencies.Graph.Services.sln
       working-directory: src
     
     - name: Build the Docker image
