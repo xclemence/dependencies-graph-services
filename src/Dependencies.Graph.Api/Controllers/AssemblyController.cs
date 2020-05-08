@@ -16,14 +16,11 @@ namespace Dependencies.Graph.Api.Controllers
     public class AssemblyController : ControllerBase
     {
         private readonly AssemblyService assemblyService;
-        private readonly ILogger<AssemblyController> logger;
         private readonly MapperConfiguration mapperConfig;
 
-        public AssemblyController(AssemblyService assemblyService, MapperConfiguration config, ILogger<AssemblyController> logger)
+        public AssemblyController(AssemblyService assemblyService, MapperConfiguration config)
         {
             this.assemblyService = assemblyService ?? throw new ArgumentNullException(nameof(assemblyService));
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-
             mapperConfig = config;
         }
 

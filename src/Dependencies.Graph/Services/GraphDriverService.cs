@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 
 namespace Dependencies.Graph.Services
@@ -8,7 +9,6 @@ namespace Dependencies.Graph.Services
         private readonly Uri uri;
         private readonly string user;
         private readonly string password;
-
         private IDriver driver;
         private bool disposedValue = false;
 
@@ -28,7 +28,6 @@ namespace Dependencies.Graph.Services
                 if (!string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(user))
                     authToken = AuthTokens.Basic(user, password);
 
-                // TODO Add Logger !
                 driver = GraphDatabase.Driver(uri, authToken);
             }
 

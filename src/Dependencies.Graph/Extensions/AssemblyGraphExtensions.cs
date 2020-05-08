@@ -1,6 +1,7 @@
 ﻿using Dependencies.Graph.Models;
+using Dependencies.Graph.Queries;
 
-namespace Dependencies.Graph.Queries
+namespace Dependencies.Graph.Extensions
 {
     internal static class AssemblyGraphExtensions
     {
