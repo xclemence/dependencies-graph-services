@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Dependencies.Graph.Extensions;
 using Dependencies.Graph.Models;
-using Dependencies.Graph.Queries;
 using Neo4j.Driver;
 
 namespace Dependencies.Graph.Queries
 {
     internal static class AssemblyQueriesExtensions
     {
-
         public static Query GetAddFullAssemblyQuery(this IEnumerable<Assembly> assemblies)
         {
             var formattedAssemblies = assemblies.Where(x => !x.IsPartial && !x.HasEntryPoint)
