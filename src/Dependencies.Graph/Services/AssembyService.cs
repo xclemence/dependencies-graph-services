@@ -24,21 +24,21 @@ namespace Dependencies.Graph.Services
         {
             var driver = service.GetDriver();
             var session = driver.AsyncSession();
-            
+
             try
             {
                 await session.WriteTransactionAsync(async x =>
                 {
-                    await x.RunAsync(assemblies.GetAddSoftwareQuery());
-                    await x.RunAsync(assemblies.GetAddFullAssemblyQuery());
-                    await x.RunAsync(assemblies.GetAddPartialAssemblyQuery());
+                    await x.RunAsync(assemblies.GetAddSoftwareQuery()).ConfigureAwait(false);
+                    await x.RunAsync(assemblies.GetAddFullAssemblyQuery()).ConfigureAwait(false);
+                    await x.RunAsync(assemblies.GetAddPartialAssemblyQuery()).ConfigureAwait(false);
 
-                    await x.RunAsync(assemblies.GetAddReferenceQuery());
-                });
+                    await x.RunAsync(assemblies.GetAddReferenceQuery()).ConfigureAwait(false);
+                }).ConfigureAwait(false);
             }
             finally
             {
-                await session.CloseAsync();
+                await session.CloseAsync().ConfigureAwait(false);
             }
         }
 
@@ -50,17 +50,17 @@ namespace Dependencies.Graph.Services
             {
                 return await session.WriteTransactionAsync(async x =>
                 {
-                    var (query, resultExtractor) = name.GetSearchAssembliesQuery();
-                    var restult = await x.RunAsync(query);
-                    
-                    var graphModels = await restult.ToListAsync(x => resultExtractor(x));
+                    (var query, var resultExtractor) = name.GetSearchAssembliesQuery();
+                    var restult = await x.RunAsync(query).ConfigureAwait(false);
+
+                    var graphModels = await restult.ToListAsync(x => resultExtractor(x)).ConfigureAwait(false);
 
                     return graphModels.Select(x => x.ToAssembly()).ToList();
-                });
+                }).ConfigureAwait(false);
             }
             finally
             {
-                await session.CloseAsync();
+                await session.CloseAsync().ConfigureAwait(false);
             }
         }
 
@@ -73,17 +73,17 @@ namespace Dependencies.Graph.Services
             {
                 return await session.WriteTransactionAsync(async x =>
                 {
-                    var (query, resultExtractor) = assemblyName.GetFullAssemblyQuery();
+                    (var query, var resultExtractor) = assemblyName.GetFullAssemblyQuery();
 
-                    var result = await x.RunAsync(query);
-                    var graphModels = await result.SingleAsync(x => resultExtractor(x));
+                    var result = await x.RunAsync(query).ConfigureAwait(false);
+                    var graphModels = await result.SingleAsync(x => resultExtractor(x)).ConfigureAwait(false);
 
                     return graphModels.ToAssembly().ToList();
-                });
+                }).ConfigureAwait(false);
             }
             finally
             {
-                await session.CloseAsync();
+                await session.CloseAsync().ConfigureAwait(false);
             }
         }
 

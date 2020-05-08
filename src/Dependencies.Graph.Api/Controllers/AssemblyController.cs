@@ -33,7 +33,7 @@ namespace Dependencies.Graph.Api.Controllers
             var mapper = mapperConfig.CreateMapper();
             var models = dto.Select(x => mapper.Map<Assembly>(x));
 
-            await assemblyService.AddAsync(models);
+            await assemblyService.AddAsync(models).ConfigureAwait(false);
 
             return Ok();
         }
@@ -41,7 +41,7 @@ namespace Dependencies.Graph.Api.Controllers
         [HttpGet("search/{name}")]
         public async Task<IActionResult> SearchAsync(string name)
         {
-            var results = await assemblyService.SearchAsync(name);
+            var results = await assemblyService.SearchAsync(name).ConfigureAwait(false);
             var mapper = mapperConfig.CreateMapper();
 
             var dtos = results.Select(x => mapper.Map<AssemblyDto>(x));
@@ -52,7 +52,7 @@ namespace Dependencies.Graph.Api.Controllers
         [HttpGet("{assemblyName}")]
         public async Task<IActionResult> GetAsync(string assemblyName)
         {
-            var results = await assemblyService.GetAsync(assemblyName);
+            var results = await assemblyService.GetAsync(assemblyName).ConfigureAwait(false);
             var mapper = mapperConfig.CreateMapper();
 
             var dtos = results.Select(x => mapper.Map<AssemblyDto>(x));

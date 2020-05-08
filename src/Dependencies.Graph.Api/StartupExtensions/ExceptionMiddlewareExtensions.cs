@@ -27,7 +27,7 @@ namespace Dependencies.Graph.Api.StartupExtensions
                         {
                             StatusCode = context.Response.StatusCode,
                             Message = "Internal Server Error."
-                        }.ToString());
+                        }.ToString()).ConfigureAwait(false);
                     }
                 });
             });

@@ -5,20 +5,19 @@ namespace Dependencies.Graph.Services
 {
     public class GraphDriverService : IDisposable
     {
-        private readonly string uri;
+        private readonly Uri uri;
         private readonly string user;
         private readonly string password;
 
         private IDriver driver;
+        private bool disposedValue = false;
 
-        public GraphDriverService(string uri, string user, string password)
+        public GraphDriverService(Uri uri, string user, string password)
         {
             this.uri = uri;
             this.user = user;
             this.password = password;
         }
-
-        public void Dispose() => driver?.Dispose();
 
         public IDriver GetDriver()
         {
@@ -34,6 +33,25 @@ namespace Dependencies.Graph.Services
             }
 
             return driver;
+        }
+
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                    driver?.Dispose();
+
+                disposedValue = true;
+            }
+        }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

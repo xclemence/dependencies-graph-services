@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using AutoMapper;
 using Dependencies.Graph.Dtos;
 using Dependencies.Graph.Models;
 using Dependencies.Graph.Services;
@@ -9,15 +11,17 @@ namespace Dependencies.Graph.Api.StartupExtensions
 {
     public static class IServiceCollectionExtensionsons
     {
+        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Register singleton inside IoC")]
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var graphClient = new GraphDriverService(configuration.GetValue<string>("GraphConfig:Uri"),
+            var graphClient = new GraphDriverService(new Uri(configuration.GetValue<string>("GraphConfig:Uri")),
                                                      configuration.GetValue<string>("GraphConfig:User"),
                                                      configuration.GetValue<string>("GraphConfig:Password"));
 
             services.AddSingleton(graphClient);
 
-            var config = new MapperConfiguration(cfg => {
+            var config = new MapperConfiguration(cfg =>
+            {
                 cfg.CreateMap<AssemblyDto, Assembly>();
                 cfg.CreateMap<Assembly, AssemblyDto>();
             });

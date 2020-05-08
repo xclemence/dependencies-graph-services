@@ -1,43 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Dependencies.Graph.Extensions;
 using Dependencies.Graph.Models;
+using Dependencies.Graph.Queries;
 using Neo4j.Driver;
 
-namespace Dependencies.Graph.Queries
+namespace Dependencies.Graph.Extensions
 {
+    [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "Neo4j Queries")]
     internal static class AssemblyQueriesExtensions
     {
-        private static AssemblyGraph ToAssemblyGraph(this Assembly assembly) => new AssemblyGraph
-        {
-            name = assembly.Name,
-            shortName = assembly.ShortName,
-            isNative = assembly.IsNative,
-            version = assembly.Version,
-            creationDate = assembly.CreationDate,
-            creator = assembly.Creator,
-            isDebug = assembly.IsDebug,
-            isILOnly = assembly.IsILOnly,
-            targetFramework = assembly.TargetFramework,
-            targetProcessor = assembly.TargetProcessor
-        };
-
-        internal static Assembly ToAssembly(this AssemblyGraph assembly) => new Assembly
-        {
-            Name = assembly.name,
-            ShortName = assembly.shortName,
-            IsNative = assembly.isNative,
-            Version = assembly.version,
-            CreationDate = assembly.creationDate,
-            Creator = assembly.creator,
-            IsDebug = assembly.isDebug,
-            IsILOnly = assembly.isILOnly,
-            TargetFramework = assembly.targetFramework,
-            TargetProcessor = assembly.targetProcessor,
-            IsPartial = assembly.isPartial ?? false,
-            HasEntryPoint = assembly.hasEntryPoint ?? false
-        };
 
         public static Query GetAddFullAssemblyQuery(this IEnumerable<Assembly> assemblies)
         {
@@ -82,7 +55,7 @@ namespace Dependencies.Graph.Queries
                            WHERE a.name =~ $filter AND NOT 'Partial' IN labels(a)
                            RETURN a";
 
-            return (query: new Query(query, new { filter = $"(?i).*{ assemblyName }.*" }), 
+            return (query: new Query(query, new { filter = $"(?i).*{ assemblyName }.*" }),
                     resultExtractor: x => x["a"].As<INode>().To<AssemblyGraph>());
         }
 
@@ -107,7 +80,8 @@ namespace Dependencies.Graph.Queries
             return (query: new Query(query, new { assemblyName }),
                     resultExtractor: x => new AssembliesTree
                     {
-                        Assemblies = x["nodes"].As<IList<INode>>().Select(x => {
+                        Assemblies = x["nodes"].As<IList<INode>>().Select(x =>
+                        {
                             var item = x.To<AssemblyGraph>();
                             item.isPartial = x.Labels.Contains("Partial");
                             item.hasEntryPoint = x.Labels.Contains("Software");
