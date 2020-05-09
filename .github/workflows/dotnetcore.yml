@@ -61,11 +61,11 @@ jobs:
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true
     - name: save docker-image
-      run: docker save -o ./docker-image dependencies_graph_api:v${{ steps.gitversion.outputs.nuGetVersionV2  }}
+      run: docker save -o ./docker-image dependencies_graph_api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
     - name: Upload image
       uses: actions/upload-artifact@v1
       with:
-        name: depencies-grah-api-image
+        name: depencies-graph-api-image
         path: docker-image
    
   deploy:
@@ -84,17 +84,17 @@ jobs:
     - name: Download image
       uses: actions/download-artifact@v1
       with:
-        name: depencies-grah-api-image
+        name: depencies-graph-api-image
     - name: test
       run: ls
     - name: load image
-      run: docker load -i ./depencies-grah-api-image/docker-image
+      run: docker load -i ./depencies-graph-api-image/docker-image
     - name: Docker login
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
     - name: Docker ls
       run: docker image ls
     - name: Docker push
-      run: docker push docker.pkg.github.com/xclemence/dependencies-graph-services/dependencies-graph-api:${{needs.build.build.buildVersion}}
+      run: docker push docker.pkg.github.com/xclemence/dependencies-graph-services/dependencies-graph-api:${{needs.build.outputs.buildVersion}}
         
       
     #- name: Publish docker image
