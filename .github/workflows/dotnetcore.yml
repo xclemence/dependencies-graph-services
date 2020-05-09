@@ -10,6 +10,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    outputs:
+      buildVersion: ${{ steps.gitversion.outputs.nuGetVersionV2  }}
 
     steps:
     - uses: actions/checkout@v2
@@ -53,11 +56,6 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies_graph_api
       working-directory: src
-    - run: |
-        echo "Major: ${{ steps.gitversion.outputs.major }}"
-        echo "Minor: ${{ steps.gitversion.outputs.minor }}"
-        echo "Patch: ${{ steps.gitversion.outputs.patch }}"
-      name: Output
 
     - name: Publish Nuget package
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
@@ -68,14 +66,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.201
+        source-url: https://nuget.pkg.github.com/xclemence/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    
     - name: Publish docker image
-      uses: docker/build-push-action@v1
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      uses: docker/build-push-action@v1 
+      #if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       with:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
-        repository: xclemence/${{ github.repository }}/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
+        repository: xclemence/${{ github.repository }}/dependencies-graph-api:${{ needs.build.outputs.buildVersion  }}
         tag_with_ref: true
         file:  Dependencies.Graph.Api/Dockerfile
 
