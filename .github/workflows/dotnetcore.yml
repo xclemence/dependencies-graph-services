@@ -78,6 +78,7 @@ jobs:
   deploy-docker:
     needs: [build]
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     steps:
     - name: Download image
       uses: actions/download-artifact@v1
@@ -114,18 +115,7 @@ jobs:
         name: dtos
     - name: Publish Nuget package
       run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true
-      
-    #- name: Publish docker image
-    #  uses: docker/build-push-action@v1 
-    #  #if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-    #  with:
-    #    username: ${{ github.actor }}
-    #    password: ${{ secrets.GITHUB_TOKEN }}
-    #    registry: docker.pkg.github.com
-    #    repository: ${{ github.repository }}/dependencies-graph-api
-    #    tag_with_ref: true
-    #    tag: v${{needs.build.buildVersion}}
-    #    dockerfile: Dependencies.Graph.Api/Dockerfile
+
       
       
 
