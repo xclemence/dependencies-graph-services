@@ -5,7 +5,7 @@ services:
     image: ${DOCKER_REGISTRY-}dependencies.graph.api
     build:
       context: .
-      dockerfile: Dependencies.Graph.Api/Dockerfile
+      dockerfile: ../Dependencies.Graph.Api/Dockerfile
     ports: 
       - 5001:80
     environment:
