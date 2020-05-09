@@ -13,15 +13,26 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Fetch all history for all tags and branches
+      run: git fetch --prune --unshallow
     
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.201
+      
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.2
+      with:
+          versionSpec: '5.2.x'
     
     - name: Install dependencies
       run: dotnet restore Dependencies.Graph.Services.sln
       working-directory: src
+    
+    - name: Use GitVersion
+      id: gitversion # step id used as reference for output values
+      uses: gittools/actions/gitversion/execute@v0.9.2
     
     - name: Build
       run: dotnet build Dependencies.Graph.Services.sln --configuration Release --no-restore
@@ -30,6 +41,11 @@ jobs:
     - name: Test
       run: dotnet test Dependencies.Graph.Services.sln
       working-directory: src
+    - run: |
+        echo "Major: ${{ steps.gitversion.outputs.major }}"
+        echo "Minor: ${{ steps.gitversion.outputs.minor }}"
+        echo "Patch: ${{ steps.gitversion.outputs.patch }}"
+      name: Output
     
     - name: Build the Docker image
       run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies_graph_api:$(date +%s)
