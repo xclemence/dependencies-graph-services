@@ -47,7 +47,6 @@ jobs:
     
     - name: Set env
       run: echo ::set-env name=IMAGE_TAG::${{ steps.gitversion.outputs.nuGetVersionV2  }}
-
     
     - name: Build
       run: dotnet build Dependencies.Graph.Services.sln --configuration Release --no-restore /p:VersionSuffix=${{ steps.gitversion.outputs.preReleaseTag }} /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2  }}
@@ -56,19 +55,15 @@ jobs:
     - name: Test
       run: dotnet test Dependencies.Graph.Services.sln --configuration Release
       working-directory: src
-      
+
     - uses: actions/upload-artifact@v2
       with:
-        name: Dtos
+        name: dtos
         path: src/Dependencies.Graph.Dtos/bin/Release
     
     - name: Build the Docker image
       run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies-graph-api:${{ env.IMAGE_TAG  }}
       working-directory: src
-
-    - name: Publish Nuget package
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-      run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true
     
     - name: save docker-image
       run: docker save -o ./${{ env.IMAGE_NAME  }} dependencies_graph_api:${{ env.IMAGE_TAG  }}
@@ -98,9 +93,10 @@ jobs:
     - name: Docker push
       run: docker push docker.pkg.github.com/xclemence/dependencies-graph-services/dependencies-graph-api:${{needs.build.outputs.buildVersion}}
         
-  deploy nuget:
+  deploy-nuget:
     needs: [build]
     runs-on: ubuntu-latest
+    #if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     steps:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -112,7 +108,9 @@ jobs:
     - name: Download image
       uses: actions/download-artifact@v1
       with:
-        name: ${{needs.build.outputs.imageArtifact}}
+        name: dtos
+    - name: Publish Nuget package
+      run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true:  
       
     #- name: Publish docker image
     #  uses: docker/build-push-action@v1 
