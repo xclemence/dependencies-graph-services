@@ -89,8 +89,11 @@ jobs:
       run: ls
     - name: load image
       run: docker load -i ./depencies-grah-api-image/docker-image
-    - name: run image
-      run: docker image ls
+    - name: Docker login
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+    - name: Docker push
+      run: docker push docker.pkg.github.com/xclemence/dependencies-graph-services/dependencies-graph-api
+        
       
     #- name: Publish docker image
     #  uses: docker/build-push-action@v1 
