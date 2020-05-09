@@ -110,7 +110,7 @@ jobs:
       with:
         name: dtos
     - name: Publish Nuget package
-      run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true:  
+      run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true
       
     #- name: Publish docker image
     #  uses: docker/build-push-action@v1 
