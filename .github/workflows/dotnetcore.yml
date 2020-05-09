@@ -68,6 +68,7 @@ jobs:
         repository: xclemence/Dependencies.Graph.Services/dependencies_graph_api
         tag_with_ref: true
   test:
+    needs: [build]
     runs-on: ubuntu-latest
 
     steps:
