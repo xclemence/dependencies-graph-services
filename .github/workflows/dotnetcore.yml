@@ -86,8 +86,8 @@ jobs:
         repository: ${{ github.repository }}/dependencies-graph-api
         tag_with_ref: true
         tag: v${{needs.build.buildVersion}}
-        dockerfile: Dependencies.Graph.Api/Dockerfile
-        path: src
+        dockerfile: src/Dependencies.Graph.Api/Dockerfile
+      
       
 
     
