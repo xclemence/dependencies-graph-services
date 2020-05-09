@@ -31,7 +31,6 @@ namespace Dependencies.Graph.Api
             services.AddSwaggerGen(c => c.SwaggerDoc($"v{Version}", new OpenApiInfo { Title = "Dependency Graph Services", Version = $"v{ Version }" }));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())

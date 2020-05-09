@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>dependencies graph</PackageTags>
+    <PackageDescription>Provide Dtos to call Dependencies Graph Api</PackageDescription>
+    <RepositoryUrl>https://github.com/xclemence/dependencies-graph-services</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

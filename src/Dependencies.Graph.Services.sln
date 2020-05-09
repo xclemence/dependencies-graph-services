@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dependencies.Graph.Api", "D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dependencies.Graph", "Dependencies.Graph\Dependencies.Graph.csproj", "{C42865C1-026F-4094-B434-5EDE74993385}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{59006508-979F-4778-892C-A02C4B9CB8B8}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose\docker-compose.dcproj", "{59006508-979F-4778-892C-A02C4B9CB8B8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dependencies.Graph.Dtos", "Dependencies.Graph.Dtos\Dependencies.Graph.Dtos.csproj", "{56F6D0A3-A143-4B8C-B5ED-E08D8DB021E9}"
 EndProject
