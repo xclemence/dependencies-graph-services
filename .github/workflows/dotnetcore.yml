@@ -49,7 +49,8 @@ jobs:
       run: echo ::set-env name=IMAGE_TAG::${{ steps.gitversion.outputs.nuGetVersionV2  }}
     
     - name: Build
-      run: dotnet build Dependencies.Graph.Services.sln --configuration Release --no-restore /p:VersionSuffix=${{ steps.gitversion.outputs.preReleaseTag }} /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2  }}
+      run: dotnet build Dependencies.Graph.Services.sln --configuration Release --no-restore
+      #/p:VersionSuffix=${{ steps.gitversion.outputs.preReleaseTag }} /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2  }}
       working-directory: src
     
     - name: Test
@@ -91,7 +92,9 @@ jobs:
     - name: Docker ls
       run: docker image ls
     - name: Docker push
-      run: docker push docker.pkg.github.com/xclemence/dependencies-graph-services/dependencies-graph-api:${{needs.build.outputs.buildVersion}}
+      run: | 
+        docker tag dependencies-graph-api:${{needs.build.outputs.buildVersion}} docker.pkg.github.com/xclemence/dependencies-graph-services/dependencies-graph-api:${{needs.build.outputs.buildVersion}}
+        docker push docker.pkg.github.com/xclemence/dependencies-graph-services/dependencies-graph-api:${{needs.build.outputs.buildVersion}}
         
   deploy-nuget:
     needs: [build]
