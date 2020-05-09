@@ -100,7 +100,7 @@ jobs:
     - name: test
       run: ls
     - name: load image
-      run: docker load -i ./${{needs.build.outputs.imageAritifact}}/${{needs.build.outputs.imageName}}
+      run: docker load -i ./${{needs.build.outputs.imageArtifact}}/${{needs.build.outputs.imageName}}
     - name: Docker login
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
     - name: Docker ls
