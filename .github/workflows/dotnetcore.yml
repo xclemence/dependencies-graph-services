@@ -74,7 +74,7 @@ jobs:
         name: ${{ env.IMAGE_ARTIFACT }}
         path: ${{ env.IMAGE_NAME  }}
    
-  deploy docker:
+  deploy-docker:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
