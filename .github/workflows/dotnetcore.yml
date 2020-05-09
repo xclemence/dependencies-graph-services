@@ -63,7 +63,7 @@ jobs:
         path: src/Dependencies.Graph.Dtos/bin/Release
     
     - name: Build the Docker image
-      run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies_graph_api:${{ env.IMAGE_TAG  }}
+      run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies-graph-api:${{ env.IMAGE_TAG  }}
       working-directory: src
 
     - name: Publish Nuget package
@@ -79,20 +79,10 @@ jobs:
         name: ${{ env.IMAGE_ARTIFACT }}
         path: ${{ env.IMAGE_NAME  }}
    
-  deploy:
+  deploy docker:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-    - name: Setup .NET Core
-      run: echo  ${{needs.build.outputs.imageArtifact}}
-         
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.201
-        source-url: https://nuget.pkg.github.com/xclemence/index.json
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Download image
       uses: actions/download-artifact@v1
       with:
@@ -108,6 +98,21 @@ jobs:
     - name: Docker push
       run: docker push docker.pkg.github.com/xclemence/dependencies-graph-services/dependencies-graph-api:${{needs.build.outputs.buildVersion}}
         
+  deploy nuget:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.201
+        source-url: https://nuget.pkg.github.com/xclemence/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: Download image
+      uses: actions/download-artifact@v1
+      with:
+        name: ${{needs.build.outputs.imageArtifact}}
       
     #- name: Publish docker image
     #  uses: docker/build-push-action@v1 
