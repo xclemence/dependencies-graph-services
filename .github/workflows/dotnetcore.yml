@@ -85,7 +85,8 @@ jobs:
         registry: docker.pkg.github.com
         repository: ${{ github.repository }}/dependencies-graph-api
         tag_with_ref: true
-        file:  Dependencies.Graph.Api/Dockerfile
+        tag: v${{needs.build.buildVersion}}
+        dockerfile: Dependencies.Graph.Api/Dockerfile
         path: src  
 
     
