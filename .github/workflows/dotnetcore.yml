@@ -1,4 +1,4 @@
-name: .NET Core
+name: Build
 
 on:
   push:
@@ -96,7 +96,7 @@ jobs:
   deploy-nuget:
     needs: [build]
     runs-on: ubuntu-latest
-    #if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     steps:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -111,8 +111,3 @@ jobs:
         name: dtos
     - name: Publish Nuget package
       run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true
-
-      
-      
-
-    
