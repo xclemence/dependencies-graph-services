@@ -55,12 +55,12 @@ jobs:
       working-directory: src
 
     - name: Publish Nuget package
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      #if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true
 
     - name: Publish docker image
       uses: docker/build-push-action@v1
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      #if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       with:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
