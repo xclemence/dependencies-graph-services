@@ -59,14 +59,15 @@ jobs:
       run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true
 
     - name: Publish docker image
-      uses: docker/push-action@v1
+      uses: docker/build-push-action@v1
       #if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       with:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
-        repository: xclemence/dependencies-graph-services/dependencies-graph-api:${{ steps.gitversion.outputs.semVer }}
+        repository: xclemence/${{ github.repository }}/dependencies-graph-api:${{ steps.gitversion.outputs.semVer }}
         tag_with_ref: true
+        file:  Dependencies.Graph.Api/Dockerfile
   test:
     needs: [build]
     runs-on: ubuntu-latest
