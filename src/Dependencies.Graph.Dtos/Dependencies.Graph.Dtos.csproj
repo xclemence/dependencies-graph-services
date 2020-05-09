@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>dependencies graph</PackageTags>
+    <Description>Provide Dtos to call Dependencies Graph Api</Description>
   </PropertyGroup>
 
   <ItemGroup>
