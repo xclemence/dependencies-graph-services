@@ -89,6 +89,8 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: depencies-grah-api-image
+    - name: test
+      run: ls
     - name: load image
       run: docker load -i ./depencies-grah-api-image/docker-image
     - name: run image
