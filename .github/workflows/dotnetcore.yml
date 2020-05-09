@@ -54,12 +54,19 @@ jobs:
         path: src/Dependencies.Graph.Dtos/bin/Release
     
     - name: Build the Docker image
-      run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies_graph_api
+      run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies_graph_api:v${{ steps.gitversion.outputs.nuGetVersionV2  }}
       working-directory: src
 
     - name: Publish Nuget package
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true
+    - name: save docker-image
+      run: docker save -o ./docker-image dependencies_graph_api:v${{ steps.gitversion.outputs.nuGetVersionV2  }}
+    - name: Upload image
+      uses: actions/upload-artifact@v1
+      with:
+        name: depencies-grah-api-image
+        path: docker-image
    
   deploy:
     needs: [build]
@@ -78,18 +85,26 @@ jobs:
         source-url: https://nuget.pkg.github.com/xclemence/index.json
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-    
-    - name: Publish docker image
-      uses: docker/build-push-action@v1 
-      #if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    - name: Download image
+      uses: actions/download-artifact@v1
       with:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-        registry: docker.pkg.github.com
-        repository: ${{ github.repository }}/dependencies-graph-api
-        tag_with_ref: true
-        tag: v${{needs.build.buildVersion}}
-        dockerfile: Dependencies.Graph.Api/Dockerfile
+        name: depencies-grah-api-image
+    - name: load image
+      run: docker load -i ./depencies-grah-api-image/docker-image
+    - name: run image
+      run: docker image ls
+      
+    #- name: Publish docker image
+    #  uses: docker/build-push-action@v1 
+    #  #if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    #  with:
+    #    username: ${{ github.actor }}
+    #    password: ${{ secrets.GITHUB_TOKEN }}
+    #    registry: docker.pkg.github.com
+    #    repository: ${{ github.repository }}/dependencies-graph-api
+    #    tag_with_ref: true
+    #    tag: v${{needs.build.buildVersion}}
+    #    dockerfile: Dependencies.Graph.Api/Dockerfile
       
       
 
