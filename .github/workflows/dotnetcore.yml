@@ -71,13 +71,13 @@ jobs:
       run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true
     
     - name: save docker-image
-      run: docker save -o ./${{ env.IMAGE_TAG  }} dependencies_graph_api:${{ env.IMAGE_TAG  }}
+      run: docker save -o ./${{ env.IMAGE_NAME  }} dependencies_graph_api:${{ env.IMAGE_TAG  }}
     
     - name: Upload image
       uses: actions/upload-artifact@v1
       with:
         name: ${{ env.IMAGE_ARTIFACT }}
-        path: ${{ env.IMAGE_TAG  }}
+        path: ${{ env.IMAGE_NAME  }}
    
   deploy:
     needs: [build]
