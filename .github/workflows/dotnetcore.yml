@@ -65,7 +65,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
-        repository: xclemence/Dependencies.Graph.Services/dependencies_graph_api
+        repository: xclemence/dependencies-graph-services/dependencies_graph_api
         tag_with_ref: true
   test:
     needs: [build]
