@@ -64,6 +64,9 @@ jobs:
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
 
     steps:
     - uses: actions/checkout@v2
@@ -86,7 +89,7 @@ jobs:
         repository: ${{ github.repository }}/dependencies-graph-api
         tag_with_ref: true
         tag: v${{needs.build.buildVersion}}
-        dockerfile: src/Dependencies.Graph.Api/Dockerfile
+        dockerfile: Dependencies.Graph.Api/Dockerfile
       
       
 
