@@ -28,9 +28,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.201
-        source-url: https://nuget.pkg.github.com/xclemence/index.json
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.2
@@ -49,8 +46,7 @@ jobs:
       run: echo ::set-env name=IMAGE_TAG::${{ steps.gitversion.outputs.nuGetVersionV2  }}
     
     - name: Build
-      run: dotnet build Dependencies.Graph.Services.sln --configuration Release --no-restore
-      #/p:VersionSuffix=${{ steps.gitversion.outputs.preReleaseTag }} /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2  }}
+      run: dotnet build Dependencies.Graph.Services.sln --configuration Release --no-restore /p:VersionSuffix=${{ steps.gitversion.outputs.preReleaseTag }} /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2  }}
       working-directory: src
     
     - name: Test
