@@ -38,7 +38,7 @@ jobs:
       uses: gittools/actions/gitversion/execute@v0.9.2
     
     - name: Build
-      run: dotnet build Dependencies.Graph.Services.sln --configuration Release --no-restore /p:VersionSuffix=${{ steps.gitversion.outputs.preReleaseTag }}
+      run: dotnet build Dependencies.Graph.Services.sln --configuration Release --no-restore /p:VersionSuffix=${{ steps.gitversion.outputs.preReleaseTag }} /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2  }}
       working-directory: src
     
     - name: Test
@@ -62,8 +62,12 @@ jobs:
     - name: Publish Nuget package
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true
+   
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
 
-
+    steps:
     - name: Publish docker image
       uses: docker/build-push-action@v1
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
@@ -71,15 +75,8 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
-        repository: xclemence/${{ github.repository }}/dependencies-graph-api:${{ steps.gitversion.outputs.semVer }}
+        repository: xclemence/${{ github.repository }}/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
         tag_with_ref: true
         file:  Dependencies.Graph.Api/Dockerfile
-  test:
-    needs: [build]
-    runs-on: ubuntu-latest
 
-    steps:
-      - name: Build the Docker image
-        run: docker image ls
-
-      
+    
