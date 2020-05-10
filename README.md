@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/npm/l/@angular/cli.svg)](/LICENSE)
 [![.NET Core][github-actions-badge]][github-actions]
 
-Dependencies Graph Services provides Apis to store and retrieve assemblies and these dependencies. behind service, a [Neo4j](https://neo4j.com/) database ensures graph storage.
+Dependencies Graph Services provides Apis to store and retrieve assemblies and these dependencies. behind service, a [Neo4j][neo4j-url] database ensures graph storage.
 
 Analyse can be realized with Dependencies Viewer and sending to Dependencies Graph with spécif export plugin.
 
@@ -31,7 +31,7 @@ Analyse can be realized with Dependencies Viewer and sending to Dependencies Gra
 
 ## Package
 
-This project generates two packages. They are available from the package page.
+This project generates two packages. They are available from the [package][github-package] page.
 - docker container for APIs
 - NuGet package for DTOs assembly
 
@@ -67,7 +67,7 @@ This project has tooling for Visual Studio and Visual Studio Code.
 
 ### Visual Studio Code
 
-The project is configured to work with the [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) plugin. With VS Code, you can open the workspace directory in a container (from mcr.microsoft.com/dotnet/core/sdk:3.1) and work inside.
+The project is configured to work with the [Remote Development][remote-development-plugin-url] plugin. With VS Code, you can open the workspace directory in a container (from mcr.microsoft.com/dotnet/core/sdk:3.1) and work inside.
 
 VS Code launch Two containers when you open workplace
 * Development container
@@ -117,8 +117,12 @@ For this project we have one node for a specif version of assembly. The assembly
 
 <img src="doc/images/database-schema.png"/>
 
-[github-actions]:               https://github.com/xclemence/Dependencies.Graph.Services/actions
-[github-actions-badge]:         https://github.com/xclemence/Dependencies.Graph.Services/workflows/Build/badge.svg?branch=master
+[github-actions]:                   https://github.com/xclemence/Dependencies-graph-services/actions
+[github-actions-badge]:             https://github.com/xclemence/Dependencies-graph-services/workflows/Build/badge.svg?branch=master
+[github-package]:                   https://github.com/xclemence/dependencies-graph-services/packages
 
-[viewer-badge]:                 https://github.com/xclemence/Dependencies.Viewer/workflows/Ms%20Build/badge.svg
-[viewer-url]:                   https://github.com/xclemence/Dependencies.Viewer
+[viewer-badge]:                     https://github.com/xclemence/Dependencies.Viewer/workflows/Ms%20Build/badge.svg
+[viewer-url]:                       https://github.com/xclemence/Dependencies.Viewer
+
+[neo4j-url]:                        https://neo4j.com/
+[remote-development-plugin-url]:    https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack 
