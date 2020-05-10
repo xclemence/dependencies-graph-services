@@ -48,7 +48,7 @@ docker run \
 ```
 When service is running, you can go to swagger page pour explore services
 
-// TODO Screnshot
+<img src="doc/images/swagger.png"/>
 
 ### Nuget package
 
@@ -71,15 +71,15 @@ For this project we have one node for a specif version of assembly. The assembly
 
 ### Relation
 
-- Reference: represents a reference between two assemblies
+* Reference: represents a reference between two assemblies
 
 ### Labels
 
-- Assembly: represents an assembly version (assembly full name is used as a key)
-- Software: Additional label for assembly with a main method
-- Partial: an additional label for assembly not found during dependencies analyses (missing assembly or another version is used when program use assembly)
+* Assembly: represents an assembly version (assembly full name is used as a key)
+* Software: Additional label for assembly with a main method
+* Partial: an additional label for assembly not found during dependencies analyses (missing assembly or another version is used when program use assembly)
 
-// TODO Diagram
+<img src="doc/images/database-schema.png"/>
 
 ## Development
 
@@ -90,12 +90,12 @@ This project has tooling for Visual Studio and Visual Studio Code.
 The project is configured to work with the [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) plugin. With VS Code, you can open the workspace directory in a container (from mcr.microsoft.com/dotnet/core/sdk:3.1) and work inside.
 
 VS Code launch Two containers when you open workplace
-- Development container
-- neo4j Container
+* Development container
+* neo4j Container
 
 Some plugins are automatically installed on VS Code for the development session. Now plugins added are:
-- C# (ms-dotnettools.csharp)
-- Debugger for Chrome (msjsdiag.debugger-for-chrome)
+* C# (ms-dotnettools.csharp)
+* Debugger for Chrome (msjsdiag.debugger-for-chrome)
 
 You can run application with following code (in VS Code Terminal):
 
@@ -112,8 +112,8 @@ http://localhost:5000
 ### Visual Studio 
 
 The solution contains a docker-compose project to run from visual studio:
-- Container with the software compiled for the container (Linux)
-- neo4j container
+* Container with the software compiled for the container (Linux)
+* neo4j container
 
 To start a debugging session, define docker-compose project as the startup project for the solution and start Visual Studio debugger. A navigator should be launch with the application start page.
 
