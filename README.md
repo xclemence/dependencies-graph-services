@@ -18,22 +18,22 @@ Analyse can be realized with Dependencies Viewer and sending to Dependencies Gra
 
 ### Functional features:
 
-- Import Assembly defintitions
-- Retrieve assemblies
-- Managed partial assembly (assembly not found during analysis)
-- Managed Software (assembly with a main method)
+* Import Assembly definitions
+* Retrieve assemblies
+* Managed partial assembly (assembly not found during analysis)
+* Managed Software (assembly with a main method)
 
 ### Technical features:
 
-- Transactions
-- Swagger to view REST APIs
-- Docker
+* Transactions
+* Swagger to view REST APIs
+* Docker
 
 ## Packages
 
 This project generates two packages. They are available from the [packages][github-package] page.
-- docker container for APIs
-- NuGet package for DTOs assembly
+* docker container for APIs
+* NuGet package for DTO assemblies
 
 ### Docker container 
 
