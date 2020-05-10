@@ -13,25 +13,25 @@ Analyse can be realized with Dependencies Viewer and sending to Dependencies Gra
 | **Export plugin**           |                                                         | 
 
 
-# Features
-Functional features:
+## Features
+### Functional features:
 - Assemblies import
 - Retrieve assemblies
 - Managed partial assembly (assembly not found during analysis)
 - Managed Sofware (assembly with a main method)
 
-Technical features:
+### Technical features:
 - Transactions
 - Swagger to view REST APIs
 - Docker
 
-# Package
+## Package
 This project generates two packages. They are available from the package page.
 - docker container for APIs
 - NuGet package for DTOs assembly
 
 
-## Docker container 
+### Docker container 
 this image is base on Linux. 
 
 You can start a Dependencies Graph Service container like this:
@@ -45,7 +45,7 @@ When service is running, you can go to swagger page pour explore services
 
 // TODO Screnshot
 
-## Nuget package
+### Nuget package
 This NuGet contains an assembly with all Data transfer objects (DTO). These classes are Plain Old C# Object (POCO) and no other dependencies.
 This package support Net Standard 2.1.
 
@@ -55,7 +55,7 @@ You can install nuget package like this:
 dotnet add package Dependencies.Graph.Dtos
 ```
 
-# Database schema
+## Database schema
 The database schema is very simple.
 
 ### Nodes
@@ -67,10 +67,10 @@ The database schema is very simple.
 
 // TODO Diagram
 
-# Development
+## Development
 This project has tooling for Visual Studio and Visual Studio Code.
 
-## Visual Studio Code
+### Visual Studio Code
 The project is configured to work with the Remote Development plugin (//todo add link). With VS Code, you can open the workspace directory in a container (from mcr.microsoft.com/dotnet/core/sdk:3.1) and work inside.
 
 VS Code launch Two containers when you open workplace
@@ -93,7 +93,7 @@ After build, you can open a navigator in your local computer and navigate to
 http://localhost:5000
 ```
 
-## Visual Studio 
+### Visual Studio 
 
 
 [github-actions]:               https://github.com/xclemence/Dependencies.Graph.Services/actions
