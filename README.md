@@ -8,10 +8,10 @@ Dependencies Graph Services provides Apis to store and retrieve assemblies and t
 Analyse can be realized with Dependencies Viewer and sending to Dependencies Graph with spécif export plugin.
 
 ##Links repositories
-|                             |                Build State                              | 
-| --------------------------- | :-----------------------------------------------------: | 
-| **Depencencies Viewer**     |      [![Build][viewer-badge]][viewer-url]               | 
-| **Export plugin**           |                                                         | 
+|        Project                         |                Build State                              | 
+| -------------------------------------- | :-----------------------------------------------------: | 
+| [**Depencencies Viewer**][viewer-url]  |      [![Build][viewer-badge]][viewer-url]               | 
+| Export plugin                          |                                                         | 
 
 
 ## Features
@@ -61,26 +61,6 @@ You can install nuget package like this:
 dotnet add package Dependencies.Graph.Dtos
 ```
 
-## Database schema
-
-In a graph database, the schema is defined by node (and labels associated) and relations between nodes
-
-### Node
-
-For this project we have one node for a specif version of assembly. The assembly full name (ex: *Dependencies.Viewer.Wpf.App, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null*) is used as node unique key.
-
-### Relation
-
-* Reference: represents a reference between two assemblies
-
-### Labels
-
-* Assembly: represents an assembly version (assembly full name is used as a key)
-* Software: Additional label for assembly with a main method
-* Partial: an additional label for assembly not found during dependencies analyses (missing assembly or another version is used when program use assembly)
-
-<img src="doc/images/database-schema.png"/>
-
 ## Development
 
 This project has tooling for Visual Studio and Visual Studio Code.
@@ -116,6 +96,26 @@ The solution contains a docker-compose project to run from visual studio:
 * neo4j container
 
 To start a debugging session, define docker-compose project as the startup project for the solution and start Visual Studio debugger. A navigator should be launch with the application start page.
+
+## Database schema
+
+In a graph database, the schema is defined by node (and labels associated) and relations between nodes
+
+### Node
+
+For this project we have one node for a specif version of assembly. The assembly full name (ex: *Dependencies.Viewer.Wpf.App, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null*) is used as node unique key.
+
+### Relation
+
+* Reference: represents a reference between two assemblies
+
+### Labels
+
+* Assembly: represents an assembly version (assembly full name is used as a key)
+* Software: Additional label for assembly with a main method
+* Partial: an additional label for assembly not found during dependencies analyses (missing assembly or another version is used when program use assembly)
+
+<img src="doc/images/database-schema.png"/>
 
 [github-actions]:               https://github.com/xclemence/Dependencies.Graph.Services/actions
 [github-actions-badge]:         https://github.com/xclemence/Dependencies.Graph.Services/workflows/Build/badge.svg?branch=master
