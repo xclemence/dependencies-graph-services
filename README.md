@@ -5,12 +5,12 @@
 
 Dependencies Graph Services provides Apis to store and retrieve assemblies and these dependencies. behind service, a [Neo4j][neo4j-url] database ensures graph storage.
 
-Analyse can be realized with Dependencies Viewer and sending to Dependencies Graph with spécif export plugin.
+Analyse can be realized with Dependencies Viewer and sending to Dependencies Graph with a specific export plugin.
 
 ##Links repositories
 |        Project                         |                Build State                              | 
 | -------------------------------------- | :-----------------------------------------------------: | 
-| [**Depencencies Viewer**][viewer-url]  |      [![Build][viewer-badge]][viewer-url]               | 
+| [**Dependencies Viewer**][viewer-url]  |      [![Build][viewer-badge]][viewer-url]               | 
 | Export plugin                          |                                                         | 
 
 
@@ -18,10 +18,10 @@ Analyse can be realized with Dependencies Viewer and sending to Dependencies Gra
 
 ### Functional features:
 
-- Assemblies import
+- Import Assembly defintitions
 - Retrieve assemblies
 - Managed partial assembly (assembly not found during analysis)
-- Managed Sofware (assembly with a main method)
+- Managed Software (assembly with a main method)
 
 ### Technical features:
 
@@ -103,7 +103,7 @@ In a graph database, the schema is defined by node (and labels associated) and r
 
 ### Node
 
-For this project we have one node for a specif version of assembly. The assembly full name (ex: *Dependencies.Viewer.Wpf.App, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null*) is used as node unique key.
+For this project we have one node for a specif version of assembly. The assembly full name (ex: *Dependencies.Viewer.App, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null*) is used as node unique key.
 
 ### Relation
 

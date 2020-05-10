@@ -8,6 +8,7 @@ excluded_files:
   - "**/obj/**/*"
   - ".typo-ci.yml"
   - "**/.github/**/*"
+  - "**/.devcontainer/**/*"
 
 # Any typos we should ignore?
 excluded_words:
@@ -15,6 +16,11 @@ excluded_words:
   - sln
   - dotnetcore
   - Dtos
+  - drawio
+  - msjsdiag
+  - ms-dotnettools
+  - csharp
+  - mcr
   
 # Would you like filenames to also be spellchecked?
 spellcheck_filenames: true
