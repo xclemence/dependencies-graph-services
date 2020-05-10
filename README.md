@@ -29,9 +29,9 @@ Analyse can be realized with Dependencies Viewer and sending to Dependencies Gra
 - Swagger to view REST APIs
 - Docker
 
-## Package
+## Packages
 
-This project generates two packages. They are available from the [package][github-package] page.
+This project generates two packages. They are available from the [packages][github-package] page.
 - docker container for APIs
 - NuGet package for DTOs assembly
 
