@@ -9,7 +9,7 @@ Analyse can be realized with Dependencies Viewer and sending to Dependencies Gra
 ##Links repositories
 |                             |                Build State                              | 
 | --------------------------- | :-----------------------------------------------------: | 
-| **Depencencies Viewer**     |      [![Build][viewer-badge]][viewer-url]]              | 
+| **Depencencies Viewer**     |      [![Build][viewer-badge]][viewer-url]               | 
 | **Export plugin**           |                                                         | 
 
 
@@ -31,7 +31,7 @@ This project generates two packages. They are available from the package page.
 - NuGet package for DTOs assembly
 
 
-## docker container 
+## Docker container 
 this image is base on Linux. 
 
 You can start a Dependencies Graph Service container like this:
@@ -45,7 +45,7 @@ When service is running, you can go to swagger page pour explore services
 
 // TODO Screnshot
 
-## nuget package
+## Nuget package
 This NuGet contains an assembly with all Data transfer objects (DTO). These classes are Plain Old C# Object (POCO) and no other dependencies.
 This package support Net Standard 2.1.
 
@@ -56,23 +56,42 @@ dotnet add package Dependencies.Graph.Dtos
 ```
 
 # Database schema
-The database schema is very simple 
-- Nodes
--- Assembly: represents an assembly version (assembly full name is used as a key)
--- Software: Additional label for assembly with a main method
--- Partial: an additional label for assembly not found during dependencies analyses (missing assembly or another version is used when program use assembly)
--Relation
--- Reference: represents a reference between two assemblies
-// TODO Diagram
+The database schema is very simple.
 
+### Nodes
+- Assembly: represents an assembly version (assembly full name is used as a key)
+- Software: Additional label for assembly with a main method
+- Partial: an additional label for assembly not found during dependencies analyses (missing assembly or another version is used when program use assembly)
+### Relation
+- Reference: represents a reference between two assemblies
+
+// TODO Diagram
 
 # Development
 This project has tooling for Visual Studio and Visual Studio Code.
 
-
 ## Visual Studio Code
+The project is configured to work with the Remote Development plugin (//todo add link). With VS Code, you can open the workspace directory in a container (from mcr.microsoft.com/dotnet/core/sdk:3.1) and work inside.
 
+VS Code launch Two containers when you open workplace
+- Development container
+- neo4j Container
 
+Some plugins are automatically installed on VS Code for the development session. Now plugins added are:
+- C# (ms-dotnettools.csharp)
+- Debugger for Chrome (msjsdiag.debugger-for-chrome)
+
+You can run application with following code (in VS Code Terminal):
+
+```
+:/workspace# dotnet restore
+:/workspace# dotnet run --project Dependencies.Graph.Api/Dependencies.Graph.Api.csproj
+```
+
+After build, you can open a navigator in your local computer and navigate to
+```
+http://localhost:5000
+```
 
 ## Visual Studio 
 
