@@ -37,18 +37,40 @@ This project generates two packages. They are available from the [packages][gith
 
 ### Docker container 
 
-This image is base on Linux. 
+This image is base on **Linux**. 
+
+#### Environment varaibles
 
 You can configure container by setting environment variables.
 
 |   Configuration file  | Environment variable  |          Comment           |   default value     |
 | ----------------------|---------------------- | :--------------------------|-------------------- |
-| ForceHttps            | ForceHttps            | Activate https redirection | false               |
+| ForceHttpsRedirection | ForceHttpsRedirection | Activate https redirection | false               |
 | GraphConfig.Uri       | GraphConfig__Uri      | Uri for neo4j connection   | bolt://localhost    |
 | GraphConfig.User      | GraphConfig__User     | neo4j user                 |                     |
 | GraphConfig.Password  | GraphConfig__Password | neo4j user password        |                     |
 
 Like all asp.net code applications, you can [customize host configuration][host-configuration-ms].
+
+#### Volumes
+
+Volumes exposed by container:
+
+|        Name        |       Description        |
+| -------------------|------------------------- |
+| logs               | Log files location       |
+
+
+
+#### Ports
+Ports exposed by Container:
+
+|        Name        |       Description        |
+| -------------------|------------------------- |
+| 80                 | HTTP port for web site   |
+| 443                | HTTPS port for web site  |
+
+#### Run
 
 You can start a Dependencies Graph Service container like this:
 
@@ -67,7 +89,7 @@ If you need force https on service, you can use the following command sample:
 docker run \
      --publish 5000:80 \
      --publish 5001:443 \
-     --env ForceHttps=true \
+     --env ForceHttpsRedirection=true \
      --env ASPNETCORE_HTTPS_PORT=5001 \
      --env ASPNETCORE_Kestrel__Certificates__Default__Password="<certificate-password>" \
      --env ASPNETCORE_Kestrel__Certificates__Default__Path=/https/<certificate-name> \ 

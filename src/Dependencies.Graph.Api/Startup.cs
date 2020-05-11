@@ -44,7 +44,7 @@ namespace Dependencies.Graph.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            if (Configuration.GetValue<bool>("ForceHttps"))
+            if (Configuration.GetValue<bool>("ForceHttpsRedirection"))
             {
                 app.UseHttpsRedirection();
                 app.UseHsts();
