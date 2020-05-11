@@ -7,9 +7,11 @@ services:
       context: .
       dockerfile: ../Dependencies.Graph.Api/Dockerfile
     ports: 
-      - 5001:80
+      - 5000:80
+      - 5001:443
     environment:
       - GraphConfig__Uri=bolt://db
+      - ASPNETCORE_URLS=http://*:80;https://*:443
     links: 
       - db
   

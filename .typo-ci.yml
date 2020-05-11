@@ -22,6 +22,9 @@ excluded_words:
   - csharp
   - mcr
   - devcontainer
+  - dcproj
+  - Serilog
+  - Hsts
   
 # Would you like filenames to also be spellchecked?
 spellcheck_filenames: true
