@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Dependencies.Graph.Api.StartupExtensions
+namespace Dependencies.Graph.Api.Configuration
 {
-    public static class ExceptionMiddlewareExtensions
+    public static class ExceptionMiddlewareConfiguration
     {
         public static void ConfigureExceptionHandler(this IApplicationBuilder app, ILogger<Startup> logger)
         {

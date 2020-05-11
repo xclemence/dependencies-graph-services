@@ -7,7 +7,6 @@ using Dependencies.Graph.Dtos;
 using Dependencies.Graph.Models;
 using Dependencies.Graph.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace Dependencies.Graph.Api.Controllers
 {

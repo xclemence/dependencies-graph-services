@@ -4,7 +4,7 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:18789",
-      "sslPort": 0
+      "sslPort": 44372
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
@@ -19,7 +19,7 @@
     "Dependencies.Graph.Services": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

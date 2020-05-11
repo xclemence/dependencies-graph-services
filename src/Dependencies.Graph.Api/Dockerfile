@@ -2,13 +2,12 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 80 443
+VOLUME ["logs"]
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Dependencies.Graph.Api/Dependencies.Graph.Api.csproj", "Dependencies.Graph.Api/"]
-COPY ["Dependencies.Graph/Dependencies.Graph.csproj", "Dependencies.Graph/"]
-COPY ["Dependencies.Graph.Dtos/Dependencies.Graph.Dtos.csproj", "Dependencies.Graph.Dtos.Graph/"]
+COPY *.csproj ./
 
 RUN dotnet restore "Dependencies.Graph.Api/Dependencies.Graph.Api.csproj"
 COPY . .
