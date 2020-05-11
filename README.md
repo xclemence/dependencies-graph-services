@@ -37,7 +37,18 @@ This project generates two packages. They are available from the [packages][gith
 
 ### Docker container 
 
-this image is base on Linux. 
+This image is base on Linux. 
+
+You can configure container by setting environment variables.
+
+|   Configuration file  | Environment variable  |          Comment           |   default value     |
+| --------------------------------------------- | :----------------------------------------------- |
+| ForceHttps            | ForceHttps            | Activate https redirection | false               |
+| GraphConfig.Uri       | GraphConfig__Uri      | Uri for neo4j connection   | bolt://localhost    |
+| GraphConfig.User      | GraphConfig__User     | neo4j user                 |                     |
+| GraphConfig.Password  | GraphConfig__Password | neo4j user password        |                     |
+
+Like all asp.net code applications, you can [customize host configuration][host-configuration-ms].
 
 You can start a Dependencies Graph Service container like this:
 
@@ -49,6 +60,18 @@ docker run \
 When service is running, you can go to swagger page pour explore services
 
 <img src="doc/images/swagger.png"/>
+
+If you need force https on service, you can use the following command sample:
+
+```
+docker run \
+     -p 5000:80 -p 5001:443 \
+     -e ForceHttps=true
+     -e ASPNETCORE_Kestrel__Certificates__Default__Password="mycertificatepassword" \
+     -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/mycertificatename.pfx \ 
+     -v %USERPROFILE%\.aspnet\https:/https/ \
+     dependencies-graph-api:tag
+```
 
 ### Nuget package
 
@@ -126,3 +149,4 @@ For this project we have one node for a specif version of assembly. The assembly
 
 [neo4j-url]:                        https://neo4j.com/
 [remote-development-plugin-url]:    https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack 
+[host-configuration-ms]:            https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.1#host-configuration

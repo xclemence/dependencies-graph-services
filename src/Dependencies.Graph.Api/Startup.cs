@@ -32,7 +32,6 @@ namespace Dependencies.Graph.Api
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
-                options.HttpsPort = Configuration.GetValue<int>("HttpsPort");
             });
 
             services.AddHsts(options =>
