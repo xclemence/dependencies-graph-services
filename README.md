@@ -42,7 +42,7 @@ This image is base on Linux.
 You can configure container by setting environment variables.
 
 |   Configuration file  | Environment variable  |          Comment           |   default value     |
-| --------------------------------------------- | :----------------------------------------------- |
+| ----------------------|---------------------- | :--------------------------|-------------------- |
 | ForceHttps            | ForceHttps            | Activate https redirection | false               |
 | GraphConfig.Uri       | GraphConfig__Uri      | Uri for neo4j connection   | bolt://localhost    |
 | GraphConfig.User      | GraphConfig__User     | neo4j user                 |                     |
