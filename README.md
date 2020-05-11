@@ -65,11 +65,13 @@ If you need force https on service, you can use the following command sample:
 
 ```
 docker run \
-     -p 5000:80 -p 5001:443 \
-     -e ForceHttps=true
-     -e ASPNETCORE_Kestrel__Certificates__Default__Password="mycertificatepassword" \
-     -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/mycertificatename.pfx \ 
-     -v %USERPROFILE%\.aspnet\https:/https/ \
+     --publish 5000:80 \
+     --publish 5001:443 \
+     --env ForceHttps=true \
+     --env ASPNETCORE_HTTPS_PORT=5001 \
+     --env ASPNETCORE_Kestrel__Certificates__Default__Password="<certificate-password>" \
+     --env ASPNETCORE_Kestrel__Certificates__Default__Path=/https/<certificate-name> \ 
+     --volume <certificate-path>:/https/ \
      dependencies-graph-api:tag
 ```
 
