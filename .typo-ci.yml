@@ -7,8 +7,9 @@ excluded_files:
   - "**/bin/**/*"
   - "**/obj/**/*"
   - ".typo-ci.yml"
-  - "**/.github/**/*"
+  - ".github/**/*"
   - "**/.devcontainer/**/*"
+  - ".gitignore"
 
 # Any typos we should ignore?
 excluded_words:

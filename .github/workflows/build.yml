@@ -1,0 +1,48 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - '**/doc/**'
+      - '**/README.md'
+      - '**/LICENSE'
+      - '**/.typo-ci.yml'
+
+  pull_request:
+    branches: [ master ]
+    paths-ignore:
+      - '**/doc/**'
+      - '**/README.md'
+      - '**/LICENSE'
+      - '**/.typo-ci.yml'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.201
+      
+    - name: Install dependencies
+      run: dotnet restore Dependencies.Graph.Services.sln
+      working-directory: src
+        
+    - name: Build
+      run: dotnet build Dependencies.Graph.Services.sln --configuration Release --no-restore
+      working-directory: src
+    
+    - name: Test
+      run: dotnet test Dependencies.Graph.Services.sln --configuration Release
+      working-directory: src
+
+    - name: Build the Docker image
+      run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies-graph-api:test
+      working-directory: src
+    
