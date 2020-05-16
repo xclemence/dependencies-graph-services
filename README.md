@@ -7,11 +7,11 @@ Dependencies Graph Services provides Apis to store and retrieve assemblies and t
 
 Analyse can be realized with Dependencies Viewer and sending to Dependencies Graph with a specific export plugin.
 
-##Links repositories
+## Links repositories
 |        Project                         |                Build State                              | 
 | -------------------------------------- | :-----------------------------------------------------: | 
 | [**Dependencies Viewer**][viewer-url]  |      [![Build][viewer-badge]][viewer-url]               | 
-| Export plugin                          |                                                         | 
+| [**Export plugins**][exchange-url]       |      [![Build][exchange-badge]][exchange-url]   | 
 
 
 ## Features
@@ -161,6 +161,9 @@ For this project we have one node for a specif version of assembly. The assembly
 
 [viewer-badge]:                     https://github.com/xclemence/Dependencies.Viewer/workflows/Ms%20Build/badge.svg
 [viewer-url]:                       https://github.com/xclemence/Dependencies.Viewer
+
+[exchange-badge]:                   https://github.com/xclemence/Dependencies.Exchange/workflows/WPF%20.NET%20Core/badge.svg?branch=master
+[exchange-url]:                     https://github.com/xclemence/Dependencies.Exchange
 
 [neo4j-url]:                        https://neo4j.com/
 [remote-development-plugin-url]:    https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack 
