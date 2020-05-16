@@ -7,7 +7,7 @@ Dependencies Graph Services provides Apis to store and retrieve assemblies and t
 
 Analyse can be realized with Dependencies Viewer and sending to Dependencies Graph with a specific export plugin.
 
-## Links repositories
+## Linked repositories
 |        Project                         |                Build State                              | 
 | -------------------------------------- | :-----------------------------------------------------: | 
 | [**Dependencies Viewer**][viewer-url]  |      [![Build][viewer-badge]][viewer-url]               | 
