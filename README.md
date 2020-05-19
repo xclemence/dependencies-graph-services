@@ -1,6 +1,6 @@
 # Dependencies Graph Services
 
-[![License](https://img.shields.io/npm/l/@angular/cli.svg)](/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](/LICENSE)
 [![.NET Core][github-actions-badge]][github-actions]
 
 Dependencies Graph Services provides Apis to store and retrieve assemblies and these dependencies. behind service, a [Neo4j][neo4j-url] database ensures graph storage.
