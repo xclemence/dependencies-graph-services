@@ -81,6 +81,7 @@ docker run \
      --publish 5000:80 \
      --publish 5001:443 \
      --env ForceHttpsRedirection=true \
+     --env ASPNETCORE_URLS="http://+:80;https://+:443" \
      --env ASPNETCORE_HTTPS_PORT=5001 \
      --env ASPNETCORE_Kestrel__Certificates__Default__Password="<certificate-password>" \
      --env ASPNETCORE_Kestrel__Certificates__Default__Path=/https/<certificate-name> \ 
