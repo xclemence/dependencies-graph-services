@@ -1,0 +1,23 @@
+name: Test
+
+on:
+  push
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build the Docker image
+      run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies-graph-api:test
+      working-directory: src
+    
+    - name: Docker login
+      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ secrets.DOCKER_HUB_LOGIN }} --password-stdin
+    - name: Docker push
+      run: | 
+        docker tag dependencies-graph-api:test xclemence/dependencies-graph-api:test
+        docker push xclemence/dependencies-graph-api:test
