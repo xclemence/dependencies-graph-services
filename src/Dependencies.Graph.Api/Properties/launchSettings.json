@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:18789",
+      "applicationUrl": "http://localhost:18789/",
       "sslPort": 44372
     }
   },
@@ -19,7 +19,6 @@
     "Dependencies.Graph.Services": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
