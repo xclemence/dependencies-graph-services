@@ -16,7 +16,7 @@ jobs:
       working-directory: src
     
     - name: Docker login
-      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ secrets.DOCKER_HUB_LOGIN }} --password-stdin
+      run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_LOGIN }} --password-stdin
     - name: Docker push
       run: | 
         docker tag dependencies-graph-api:test xclemence/dependencies-graph-api:test
