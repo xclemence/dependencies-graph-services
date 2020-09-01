@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 
 namespace Dependencies.Graph.Services
@@ -10,7 +9,7 @@ namespace Dependencies.Graph.Services
         private readonly string user;
         private readonly string password;
         private IDriver driver;
-        private bool disposedValue = false;
+        private bool disposedValue;
 
         public GraphDriverService(Uri uri, string user, string password)
         {

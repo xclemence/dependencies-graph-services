@@ -42,7 +42,7 @@ namespace Dependencies.Graph.Api
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment _, ILogger<Startup> logger)
         {
             if (Configuration.GetValue<bool>("ForceHttpsRedirection"))
             {
