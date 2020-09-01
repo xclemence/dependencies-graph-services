@@ -26,7 +26,8 @@ jobs:
 
     - name: start sonar scanner
       run: dotnet sonarscanner begin o:xclemence /k:xclemence_dependencies-graph-services /d:sonar.host.url=https://sonarcloud.io
-      working-directory: src
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       
     - name: Build
       run: dotnet build Dependencies.Graph.Services.sln --configuration Release --no-restore
@@ -38,7 +39,6 @@ jobs:
 
     - name: stop sonar scanner
       run: dotnet sonarscanner end 
-      working-directory: src
 
     - name: Build the Docker image
       run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies-graph-api:test
