@@ -1,7 +1,9 @@
-name: Build
+name: Branche
 
 on:
   push:
+    branches-ignore:
+      - master
     paths-ignore:
       - '**/doc/**'
       - '**/README.md'
