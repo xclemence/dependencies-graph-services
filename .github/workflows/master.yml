@@ -46,7 +46,6 @@ jobs:
         /d:sonar.exclusions=**/obj/**,**/*.dll \
         /d:sonar.cs.opencover.reportsPaths=./**/coverage.opencover.xml \
         /d:sonar.cs.vstest.reportsPaths=./**/*.trx
-
       working-directory: src
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
