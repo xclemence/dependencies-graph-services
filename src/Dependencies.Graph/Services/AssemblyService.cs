@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Dependencies.Graph.Extensions;
 using Dependencies.Graph.Models;
 using Dependencies.Graph.Queries;
-using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 
 namespace Dependencies.Graph.Services
@@ -12,12 +11,9 @@ namespace Dependencies.Graph.Services
     public class AssemblyService
     {
         private readonly GraphDriverService service;
-        private readonly ILogger<AssemblyService> logger;
-
-        public AssemblyService(GraphDriverService service, ILogger<AssemblyService> logger)
+        public AssemblyService(GraphDriverService service)
         {
             this.service = service;
-            this.logger = logger;
         }
 
         public async Task AddAsync(IEnumerable<Assembly> assemblies)
