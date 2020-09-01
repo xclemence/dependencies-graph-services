@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](/LICENSE)
 [![.NET Core][github-actions-badge]][github-actions]
+[![Quality Gate Status][sonar-badge]][sonar-url]
 
 Dependencies Graph Services provides Apis to store and retrieve assemblies and these dependencies. behind service, a [Neo4j][neo4j-url] database ensures graph storage.
 
@@ -157,8 +158,11 @@ For this project we have one node for a specif version of assembly. The assembly
 <img src="doc/images/database-schema.png"/>
 
 [github-actions]:                   https://github.com/xclemence/Dependencies-graph-services/actions
-[github-actions-badge]:             https://github.com/xclemence/Dependencies-graph-services/workflows/Build/badge.svg?branch=master
+[github-actions-badge]:             https://github.com/xclemence/Dependencies-graph-services/workflows/Master/badge.svg?branch=master
 [github-package]:                   https://github.com/xclemence/dependencies-graph-services/packages
+
+[sonar-badge]:                      https://sonarcloud.io/api/project_badges/measure?project=xclemence_dependencies-graph-services&metric=alert_status
+[sonar-url]:                        https://sonarcloud.io/dashboard?id=xclemence_dependencies-graph-services
 
 [viewer-badge]:                     https://github.com/xclemence/Dependencies.Viewer/workflows/Ms%20Build/badge.svg
 [viewer-url]:                       https://github.com/xclemence/Dependencies.Viewer
@@ -169,3 +173,6 @@ For this project we have one node for a specif version of assembly. The assembly
 [neo4j-url]:                        https://neo4j.com/
 [remote-development-plugin-url]:    https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack 
 [host-configuration-ms]:            https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.1#host-configuration
+
+
+
