@@ -41,6 +41,9 @@ jobs:
     - name: stop sonar scanner
       run: dotnet sonarscanner end 
       working-directory: src
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
     - name: Build the Docker image
       run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies-graph-api:test
