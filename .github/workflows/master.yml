@@ -1,7 +1,21 @@
-name: Build
+name: Master
 
 on:
-  push
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - '**/doc/**'
+      - '**/README.md'
+      - '**/LICENSE'
+      - '**/.typo-ci.yml'
+
+  pull_request:
+    branches: [ master ]
+    paths-ignore:
+      - '**/doc/**'
+      - '**/README.md'
+      - '**/LICENSE'
+      - '**/.typo-ci.yml'
 
 jobs:
   build:
