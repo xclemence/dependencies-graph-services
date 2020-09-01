@@ -56,6 +56,14 @@ jobs:
           docker tag dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }} docker.pkg.github.com/xclemence/dependencies-graph-services/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
           docker push docker.pkg.github.com/xclemence/dependencies-graph-services/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
       
+      
+      - name: Docker Hub login
+        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_LOGIN }} --password-stdin
+      - name: Docker Hub push
+        run: | 
+          docker tag dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }} xclemence/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
+          docker push xclemence/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
+
       # Release Creation
       - uses: olegtarasov/get-tag@v2
         id: tagName
