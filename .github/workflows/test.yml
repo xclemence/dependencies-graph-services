@@ -25,7 +25,7 @@ jobs:
       working-directory: src
 
     - name: start sonar scanner
-      run: dotnet sonarscanner begin /o:xclemence /k:xclemence_dependencies-graph-services /d:sonar.host.url=https://sonarcloud.io
+      run: dotnet sonarscanner begin
       working-directory: src
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -35,7 +35,7 @@ jobs:
       working-directory: src
     
     - name: Test
-      run: dotnet test Dependencies.Graph.Services.sln --configuration Release
+      run: dotnet test Dependencies.Graph.Services.sln --configuration Release --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
       working-directory: src
 
     - name: stop sonar scanner
