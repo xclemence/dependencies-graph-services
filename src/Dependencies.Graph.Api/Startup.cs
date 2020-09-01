@@ -56,7 +56,7 @@ namespace Dependencies.Graph.Api
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint($"/swagger/v{Version}/swagger.json", "Dependency Graph Services");
+                c.SwaggerEndpoint($"./swagger/v{Version}/swagger.json", "Dependency Graph Services");
                 c.RoutePrefix = string.Empty;
             });
 
