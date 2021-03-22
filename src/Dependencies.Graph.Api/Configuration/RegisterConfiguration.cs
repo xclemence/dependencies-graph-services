@@ -11,7 +11,6 @@ namespace Dependencies.Graph.Api.Configuration
 {
     public static class IServiceCollectionExtensionsons
     {
-        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Register singleton inside IoC")]
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
             var graphClient = new GraphDriverService(new Uri(configuration.GetValue<string>("GraphConfig:Uri")),

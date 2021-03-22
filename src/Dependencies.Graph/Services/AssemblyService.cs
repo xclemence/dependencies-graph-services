@@ -11,10 +11,8 @@ namespace Dependencies.Graph.Services
     public class AssemblyService
     {
         private readonly GraphDriverService service;
-        public AssemblyService(GraphDriverService service)
-        {
-            this.service = service;
-        }
+
+        public AssemblyService(GraphDriverService service) => this.service = service;
 
         public async Task AddAsync(IEnumerable<Assembly> assemblies)
         {
