@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
+using Dependencies.Graph.JsonConverters;
+using Neo4j.Driver;
 
 namespace Dependencies.Graph.Queries
 {
@@ -28,6 +31,7 @@ namespace Dependencies.Graph.Queries
 
         public bool? hasEntryPoint { get; set; }
 
-        public DateTime creationDate { get; set; }
+        [JsonConverter(typeof(LocalDateTimeJsonConverter))]
+        public LocalDateTime creationDate { get; set; }
     }
 }

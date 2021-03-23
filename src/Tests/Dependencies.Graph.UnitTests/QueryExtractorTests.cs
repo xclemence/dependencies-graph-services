@@ -33,7 +33,7 @@ namespace Dependencies.Graph.UnitTests
 
             Assert.AreEqual("test", result.name);
             Assert.AreEqual(true, result.isNative);
-            Assert.AreEqual(new DateTime(2020, 1, 2, 3, 4, 5), result.creationDate);
+            Assert.AreEqual(new LocalDateTime(2020, 1, 2, 3, 4, 5), result.creationDate);
         }
     
         [TestMethod]
