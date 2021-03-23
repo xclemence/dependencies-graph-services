@@ -1,5 +1,6 @@
-﻿using Neo4j.Driver;
-using Newtonsoft.Json;
+﻿using Dependencies.Graph.JsonConverters;
+using Neo4j.Driver;
+using System.Text.Json;
 
 namespace Dependencies.Graph.Extensions
 {
@@ -7,8 +8,13 @@ namespace Dependencies.Graph.Extensions
     {
         internal static T To<T>(this INode node)
         {
-            var nodeProps = JsonConvert.SerializeObject(node.Properties);
-            return JsonConvert.DeserializeObject<T>(nodeProps);
+            var serializeOptions = new JsonSerializerOptions
+            {
+                Converters = {  new LocalDateTimeJsonConverter() }
+            };
+
+            var nodeProps = JsonSerializer.Serialize(node.Properties, serializeOptions);
+            return JsonSerializer.Deserialize<T>(nodeProps);
         }
     }
 }

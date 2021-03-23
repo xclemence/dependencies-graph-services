@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
 
 namespace Dependencies.Graph.Dtos
 {
@@ -7,6 +7,6 @@ namespace Dependencies.Graph.Dtos
         public int StatusCode { get; set; }
         public string Message { get; set; }
 
-        public override string ToString() => JsonConvert.SerializeObject(this);
+        public override string ToString() => JsonSerializer.Serialize(this);
     }
 }

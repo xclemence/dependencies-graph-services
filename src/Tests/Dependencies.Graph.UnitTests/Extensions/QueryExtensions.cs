@@ -12,7 +12,7 @@ namespace Dependencies.Graph.UnitTests.Extensions
 
         public static Exception ValidateSyntax(this Query query)
         {
-            var stream = CharStreams.fromstring(query.Text);
+            var stream = CharStreams.fromString(query.Text);
             var lexer = new CypherLexer(stream);
             var tokens = new CommonTokenStream(lexer);
             var parser = new CypherParser(tokens)

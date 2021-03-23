@@ -1,5 +1,6 @@
 ﻿using Dependencies.Graph.Models;
 using Dependencies.Graph.Queries;
+using Neo4j.Driver;
 
 namespace Dependencies.Graph.Extensions
 {
@@ -13,7 +14,7 @@ namespace Dependencies.Graph.Extensions
                 shortName = assembly.ShortName,
                 isNative = assembly.IsNative,
                 version = assembly.Version,
-                creationDate = assembly.CreationDate,
+                creationDate = new LocalDateTime(assembly.CreationDate),
                 creator = assembly.Creator,
                 isDebug = assembly.IsDebug,
                 isILOnly = assembly.IsILOnly,
@@ -30,7 +31,7 @@ namespace Dependencies.Graph.Extensions
                 ShortName = assembly.shortName,
                 IsNative = assembly.isNative,
                 Version = assembly.version,
-                CreationDate = assembly.creationDate,
+                CreationDate = assembly.creationDate.ToDateTime(),
                 Creator = assembly.creator,
                 IsDebug = assembly.isDebug,
                 IsILOnly = assembly.isILOnly,

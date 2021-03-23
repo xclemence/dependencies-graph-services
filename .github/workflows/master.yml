@@ -28,14 +28,14 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.201
+        dotnet-version: '5.0.x'
       
     - name: Install dependencies
       run: dotnet restore Dependencies.Graph.Services.sln
       working-directory: src
 
     - name: Install sonar scanner
-      run: dotnet tool install --global dotnet-sonarscanner --version 4.10.0
+      run: dotnet tool install --global dotnet-sonarscanner --version 5.1.0
       working-directory: src
 
     - name: start sonar scanner

@@ -20,15 +20,15 @@ namespace Dependencies.Graph.Services
 
         public IDriver GetDriver()
         {
-            if (driver == null)
-            {
-                var authToken = AuthTokens.None;
+            if (driver != null)
+                return driver;
 
-                if (!string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(user))
-                    authToken = AuthTokens.Basic(user, password);
+            var authToken = AuthTokens.None;
 
-                driver = GraphDatabase.Driver(uri, authToken);
-            }
+            if (!string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(user))
+                authToken = AuthTokens.Basic(user, password);
+
+            driver = GraphDatabase.Driver(uri, authToken);
 
             return driver;
         }
@@ -36,13 +36,13 @@ namespace Dependencies.Graph.Services
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
-            {
-                if (disposing)
-                    driver?.Dispose();
+            if (disposedValue)
+                return;
+         
+            if (disposing)
+                driver?.Dispose();
 
-                disposedValue = true;
-            }
+            disposedValue = true;
         }
 
         // This code added to correctly implement the disposable pattern.
