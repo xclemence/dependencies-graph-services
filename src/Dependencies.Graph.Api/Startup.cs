@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 
 namespace Dependencies.Graph.Api
 {
@@ -27,7 +26,7 @@ namespace Dependencies.Graph.Api
             services.RegisterServices(Configuration);
             services.ConfigureCors();
 
-            services.AddSwaggerGen(c => c.SwaggerDoc($"v{Version}", new OpenApiInfo { Title = "Dependency Graph Services", Version = $"v{ Version }" }));
+            services.AddSwagger(Version, Configuration);
 
             services.AddHttpsRedirection(options =>
             {
@@ -40,6 +39,8 @@ namespace Dependencies.Graph.Api
                 options.IncludeSubDomains = true;
                 options.MaxAge = TimeSpan.FromDays(60);
             });
+
+            services.ConfigureAuthorization(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment _, ILogger<Startup> logger)
@@ -54,15 +55,14 @@ namespace Dependencies.Graph.Api
 
             app.UseSwagger();
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint($"./swagger/v{Version}/swagger.json", "Dependency Graph Services");
-                c.RoutePrefix = string.Empty;
-            });
+            app.UseSwaggerUI(Version, Configuration);
 
             app.ConfigureExceptionHandler(logger);
-            
+
             app.UseCors("CorsPolicy");
+
+            app.UseAuthentication(); // added
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

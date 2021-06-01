@@ -18,7 +18,7 @@ on:
       - '**/.typo-ci.yml'
 
 jobs:
-  build:
+  build-quality:
 
     runs-on: ubuntu-latest
     
