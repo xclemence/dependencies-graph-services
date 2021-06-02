@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Neo4j.Driver;
 using System.Linq;
+using Neo4j.Driver;
 
 namespace Dependencies.Graph.UnitTests.Models
 {

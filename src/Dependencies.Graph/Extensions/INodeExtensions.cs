@@ -1,6 +1,6 @@
-﻿using Dependencies.Graph.JsonConverters;
+﻿using System.Text.Json;
+using Dependencies.Graph.JsonConverters;
 using Neo4j.Driver;
-using System.Text.Json;
 
 namespace Dependencies.Graph.Extensions
 {
@@ -10,7 +10,7 @@ namespace Dependencies.Graph.Extensions
         {
             var serializeOptions = new JsonSerializerOptions
             {
-                Converters = {  new LocalDateTimeJsonConverter() }
+                Converters = { new LocalDateTimeJsonConverter() }
             };
 
             var nodeProps = JsonSerializer.Serialize(node.Properties, serializeOptions);

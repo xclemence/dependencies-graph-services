@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System;
+using Dependencies.Graph.Api.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Dependencies.Graph.Api.Extensions;
 using Microsoft.OpenApi.Models;
-using System;
-using Microsoft.AspNetCore.Builder;
 
 namespace Dependencies.Graph.Api.Configuration
 {

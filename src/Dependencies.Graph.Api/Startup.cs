@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Dependencies.Graph.Api.Configuration;
+using Dependencies.Graph.Api.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,8 +23,16 @@ namespace Dependencies.Graph.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc(opts =>
+            {
+                opts.EnableEndpointRouting = false;
+                opts.Filters.Add(new Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.RegisterServices(Configuration);
+
+            services.AddOptions();
+            services.Configure<SecurityOption>(Configuration.GetSection("Security"));
+
             services.ConfigureCors();
 
             services.AddSwagger(Version, Configuration);
@@ -61,7 +70,7 @@ namespace Dependencies.Graph.Api
 
             app.UseCors("CorsPolicy");
 
-            app.UseAuthentication(); // added
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

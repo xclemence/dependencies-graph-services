@@ -38,7 +38,7 @@ namespace Dependencies.Graph.Services
         {
             if (disposedValue)
                 return;
-         
+
             if (disposing)
                 driver?.Dispose();
 

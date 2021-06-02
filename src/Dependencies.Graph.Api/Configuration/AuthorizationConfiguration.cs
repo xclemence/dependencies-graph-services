@@ -1,6 +1,8 @@
 ﻿using Dependencies.Graph.Api.Extensions;
+using Dependencies.Graph.Api.Security;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -13,10 +15,12 @@ namespace Dependencies.Graph.Api.Configuration
         {
             if (!configuration.GetSecurityEnabled())
             {
-                services.AddAuthorization(x => x.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAssertion(_ => true).Build());
+                services.AddSingleton<IPolicyEvaluator, DisableAuthenticationPolicyEvaluator>();
             }
             else
             {
+                services.AddTransient<IClaimsTransformation, ClaimsTransformation>();
+
                 services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

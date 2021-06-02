@@ -24,8 +24,8 @@ namespace Dependencies.Graph.Api.Controllers
             mapperConfig = config;
         }
 
+        [Authorize(Roles = "write")]
         [HttpPost("add")]
-        [Authorize]
         public async Task<IActionResult> AddAsyc([FromBody] IList<AssemblyDto> dto)
         {
             var mapper = mapperConfig.CreateMapper();
@@ -36,7 +36,7 @@ namespace Dependencies.Graph.Api.Controllers
             return Ok();
         }
 
-        [Authorize]
+        [Authorize(Roles = "read")]
         [HttpGet("search/{name}")]
         public async Task<IActionResult> SearchAsync(string name)
         {
@@ -48,8 +48,8 @@ namespace Dependencies.Graph.Api.Controllers
             return Ok(dtos);
         }
 
+        [Authorize(Roles = "read")]
         [HttpGet("{assemblyName}")]
-        [Authorize]
         public async Task<IActionResult> GetAsync(string assemblyName)
         {
             var results = await assemblyService.GetAsync(assemblyName).ConfigureAwait(false);
