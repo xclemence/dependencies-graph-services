@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Neo4j.Driver;
 using System.Diagnostics.CodeAnalysis;
+using Neo4j.Driver;
 
 namespace Dependencies.Graph.UnitTests.Models
 {
@@ -11,7 +11,7 @@ namespace Dependencies.Graph.UnitTests.Models
 
         public IReadOnlyList<string> Labels { get; set; } = new List<string>();
 
-        public IReadOnlyDictionary<string, object> Properties { get; set;  } 
+        public IReadOnlyDictionary<string, object> Properties { get; set; }
 
         public long Id { get; set; }
 

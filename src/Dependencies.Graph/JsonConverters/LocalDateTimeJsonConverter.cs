@@ -10,7 +10,7 @@ namespace Dependencies.Graph.JsonConverters
         public override LocalDateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) =>
             new(DateTime.Parse(reader.GetString()));
 
-        public override void Write(Utf8JsonWriter writer, LocalDateTime value, JsonSerializerOptions options) => 
+        public override void Write(Utf8JsonWriter writer, LocalDateTime value, JsonSerializerOptions options) =>
             writer.WriteStringValue(value.ToDateTime().ToString());
     }
 }

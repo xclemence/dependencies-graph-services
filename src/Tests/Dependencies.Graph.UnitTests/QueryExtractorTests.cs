@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Dependencies.Graph.Queries;
-using Neo4j.Driver;
-using Dependencies.Graph.UnitTests.Models;
 using System.Linq;
+using Dependencies.Graph.Queries;
+using Dependencies.Graph.UnitTests.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neo4j.Driver;
 
 namespace Dependencies.Graph.UnitTests
 {
@@ -35,7 +35,7 @@ namespace Dependencies.Graph.UnitTests
             Assert.AreEqual(true, result.isNative);
             Assert.AreEqual(new LocalDateTime(2020, 1, 2, 3, 4, 5), result.creationDate);
         }
-    
+
         [TestMethod]
         public void SearchAssemblyExtractorErrorTest()
         {
@@ -48,7 +48,7 @@ namespace Dependencies.Graph.UnitTests
         }
 
         [TestMethod]
-        public void GetAssemblyExtractorTest() 
+        public void GetAssemblyExtractorTest()
         {
             var (_, extractor) = "test".GetFullAssemblyQuery();
 
@@ -66,8 +66,8 @@ namespace Dependencies.Graph.UnitTests
                 new List<string> { "1", "4" },
             };
 
-            var record = new FakeRecord(new Dictionary<string, object> 
-            { 
+            var record = new FakeRecord(new Dictionary<string, object>
+            {
                 ["nodes"] = nodes,
                 ["references"] = references
             });
@@ -88,9 +88,9 @@ namespace Dependencies.Graph.UnitTests
 
             var nodes = new INode[]
             {
-                new FakeNode 
-                { 
-                    Properties = new Dictionary<string, object> { ["name"] = "test" }, 
+                new FakeNode
+                {
+                    Properties = new Dictionary<string, object> { ["name"] = "test" },
                     Labels = new List<string> { "Partial" }
                 },
                 new FakeNode

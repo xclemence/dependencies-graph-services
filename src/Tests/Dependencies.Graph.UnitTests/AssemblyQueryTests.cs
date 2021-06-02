@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Dependencies.Graph.Queries;
-using Dependencies.Graph.Models;
-using System.Linq;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Dependencies.Graph.Models;
+using Dependencies.Graph.Queries;
 using Dependencies.Graph.UnitTests.Extensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Dependencies.Graph.UnitTests
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Dependencies.Graph.Api.Configuration;
+using Dependencies.Graph.Api.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 
 namespace Dependencies.Graph.Api
 {
@@ -23,11 +23,19 @@ namespace Dependencies.Graph.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc(opts =>
+            {
+                opts.EnableEndpointRouting = false;
+                opts.Filters.Add(new Microsoft.AspNetCore.Mvc.Authorization.AllowAnonymousFilter());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.RegisterServices(Configuration);
+
+            services.AddOptions();
+            services.Configure<SecurityOption>(Configuration.GetSection("Security"));
+
             services.ConfigureCors();
 
-            services.AddSwaggerGen(c => c.SwaggerDoc($"v{Version}", new OpenApiInfo { Title = "Dependency Graph Services", Version = $"v{ Version }" }));
+            services.AddSwagger(Version, Configuration);
 
             services.AddHttpsRedirection(options =>
             {
@@ -40,6 +48,8 @@ namespace Dependencies.Graph.Api
                 options.IncludeSubDomains = true;
                 options.MaxAge = TimeSpan.FromDays(60);
             });
+
+            services.ConfigureAuthorization(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment _, ILogger<Startup> logger)
@@ -54,15 +64,14 @@ namespace Dependencies.Graph.Api
 
             app.UseSwagger();
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint($"./swagger/v{Version}/swagger.json", "Dependency Graph Services");
-                c.RoutePrefix = string.Empty;
-            });
+            app.UseSwaggerUI(Version, Configuration);
 
             app.ConfigureExceptionHandler(logger);
-            
+
             app.UseCors("CorsPolicy");
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

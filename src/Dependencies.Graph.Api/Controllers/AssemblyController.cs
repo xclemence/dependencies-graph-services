@@ -6,6 +6,7 @@ using AutoMapper;
 using Dependencies.Graph.Dtos;
 using Dependencies.Graph.Models;
 using Dependencies.Graph.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dependencies.Graph.Api.Controllers
@@ -23,6 +24,7 @@ namespace Dependencies.Graph.Api.Controllers
             mapperConfig = config;
         }
 
+        [Authorize(Roles = "write")]
         [HttpPost("add")]
         public async Task<IActionResult> AddAsyc([FromBody] IList<AssemblyDto> dto)
         {
@@ -34,6 +36,7 @@ namespace Dependencies.Graph.Api.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "read")]
         [HttpGet("search/{name}")]
         public async Task<IActionResult> SearchAsync(string name)
         {
@@ -45,6 +48,7 @@ namespace Dependencies.Graph.Api.Controllers
             return Ok(dtos);
         }
 
+        [Authorize(Roles = "read")]
         [HttpGet("{assemblyName}")]
         public async Task<IActionResult> GetAsync(string assemblyName)
         {

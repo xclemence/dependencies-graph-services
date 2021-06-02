@@ -5,82 +5,108 @@ on:
     tags:
     - 'v*'
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build:
-    name: Upload Release Asset
+  publish-docker-github:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Fetch all history for all tags and branches
-        run: git fetch --prune --unshallow
-      
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '5.0.x'
-          source-url: https://nuget.pkg.github.com/xclemence/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.2
-        with:
-            versionSpec: '5.2.x'
-      
-      - name: Install dependencies
-        run: dotnet restore Dependencies.Graph.Services.sln
-        working-directory: src
-      
-      - name: Use GitVersion
-        id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.9.2
-      
-      # DTOs
-      - name: Build
-        run: dotnet build Dependencies.Graph.Dtos/Dependencies.Graph.Dtos.csproj --configuration Release --no-restore /p:VersionSuffix=${{ steps.gitversion.outputs.preReleaseTag }} /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2  }}
-        working-directory: src
-  
-      - name: Publish Nuget package
-        run: dotnet nuget push **/*.nupkg --skip-duplicate --no-symbols true
-  
-      # Docker Image
-      - name: Build the Docker image
-        run: docker build . --file Dependencies.Graph.Api/Dockerfile --tag dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
-        working-directory: src
-  
-      - name: Docker login
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-      - name: Docker push
-        run: | 
-          docker tag dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }} docker.pkg.github.com/xclemence/dependencies-graph-services/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
-          docker push docker.pkg.github.com/xclemence/dependencies-graph-services/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
-      
-      
-      - name: Docker Hub login
-        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u ${{ secrets.DOCKER_HUB_LOGIN }} --password-stdin
-      - name: Docker Hub push
-        run: | 
-          docker tag dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }} xclemence/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
-          docker push xclemence/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
+    - uses: actions/checkout@v2
+    - name: Fetch all history for all tags and branches
+      run: git fetch --prune --unshallow
 
-      # Release Creation
-      - uses: olegtarasov/get-tag@v2
-        id: tagName
-      - name: Read Release Notes
-        id: release_notes
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./doc/releases/${{ steps.tagName.outputs.tag }}.md
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.9
+      with:
+          versionSpec: '5.x'
+          
+    - name: Use GitVersion
+      id: gitversion # step id used as reference for output values
+      uses: gittools/actions/gitversion/execute@v0.9.9
+    
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: ${{ steps.release_notes.outputs.content }}
-          draft: false
-          prerelease: false
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        platforms: linux/amd64,linux/arm64
+        file: src/Dependencies.Graph.Api/Dockerfile
+        context: src
+        push: true
+        tags: ghcr.io/${{ github.repository_owner }}/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
+
+  publish-docker-dockerhub:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Fetch all history for all tags and branches
+      run: git fetch --prune --unshallow
+
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.9
+      with:
+          versionSpec: '5.x'
+          
+    - name: Use GitVersion
+      id: gitversion # step id used as reference for output values
+      uses: gittools/actions/gitversion/execute@v0.9.9
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_LOGIN }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        file: src/Dependencies.Graph.Api/Dockerfile
+        platforms: linux/amd64,linux/arm64
+        context: src
+        push: true
+        tags: xclemence/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2 }}
+
+  release-note:
+    needs: [publish-docker-github, publish-docker-dockerhub]
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    # Release Creation
+    - uses: olegtarasov/get-tag@v2
+      id: tagName
+
+    - name: Read Release Notes
+      id: release_notes
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: ./doc/releases/${{ steps.tagName.outputs.tag }}.md
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: ${{ steps.release_notes.outputs.content }}
+        draft: false
+        prerelease: false
