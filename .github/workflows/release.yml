@@ -77,7 +77,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v2
       with:
-        platforms: linux/amd64,linux/arm64,linux/arm/v7
+        platforms: linux/amd64,linux/arm64
         file: src/Dependencies.Graph.Api/Dockerfile
         context: src
         push: true
@@ -110,8 +110,8 @@ jobs:
     - name: Login to DockerHub
       uses: docker/login-action@v1
       with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
     - name: Build and push
       uses: docker/build-push-action@v2
