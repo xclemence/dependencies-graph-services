@@ -91,7 +91,7 @@ jobs:
         fetch-depth: 0
 
     # Release Creation
-    - uses: olegtarasov/get-tag@v2
+    - uses: olegtarasov/get-tag@v2.1
       id: tagName
 
     - name: Read Release Notes
