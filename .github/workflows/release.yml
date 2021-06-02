@@ -74,12 +74,11 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         platforms: linux/amd64,linux/arm64,linux/arm/v7
-        file: Dependencies.Graph.Api/Dockerfile
-        context: .
+        file: src/Dependencies.Graph.Api/Dockerfile
+        context: src
         push: true
         # tags: ghcr.io/${{ github.repository_owner }}/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}
         tags: ghcr.io/${{ github.repository_owner }}/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2  }}-beta
-      working-directory: src
 
   publish-docker-dockerhub:
     runs-on: ubuntu-latest
@@ -109,13 +108,12 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v2
       with:
-        file: Dependencies.Graph.Api/Dockerfile
+        file: src/Dependencies.Graph.Api/Dockerfile
         platforms: linux/amd64,linux/arm64
-        context: .
+        context: src
         push: true
         # tags: xclemence/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2 }}
         tags: xclemence/dependencies-graph-api:${{ steps.gitversion.outputs.nuGetVersionV2 }}-beta
-      working-directory: src
 
   # release-note:
   #   needs: [publish-nuget, publish-docker-github, publish-docker-dockerhub]
