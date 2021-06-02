@@ -37,7 +37,7 @@ This image is base on **Linux**.
 
 You can configure container by setting environment variables.
 
-|   Configuration file         | Environment variable  |          Comment           |   default value     | Exemple |
+|   Configuration file         | Environment variable  |          Comment           |   default value     | Example |
 | -----------------------------|---------------------- | :--------------------------|-------------------- |---------|
 | ForceHttpsRedirection        | ForceHttpsRedirection | Activate https redirection | false               |         |
 | GraphConfig.Uri              | GraphConfig__Uri      | Uri for neo4j connection   | bolt://localhost    |         |
@@ -48,7 +48,7 @@ You can configure container by setting environment variables.
 | Security.Oidc.Authority      | Security__Oidc__Authority  | Authority to validate token   |             |         |
 | Security.Swagger.ClientId    | Security__Swagger__ClientId  | ClientId to logon from swagger (default value)  |        |         |
 | Security.Swagger.ClientSecret| Security__Swagger__ClientSecret  | ClientSecret to logon from swagger (default value) |  |         |
-| Security.RoleMappings        | Security__RoleMappings  | Map keyclaok rights to application rights   |  | [ { \"Server\": \"read-serve\", \"App\": \"read\" } ] |
+| Security.RoleMappings        | Security__RoleMappings  | Map Keycloak rights to application rights   |  | [ { \"Server\": \"read-serve\", \"App\": \"read\" } ] |
 
 Like all asp.net code applications, you can [customize host configuration][host-configuration-ms].
 
