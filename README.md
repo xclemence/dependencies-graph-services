@@ -23,6 +23,7 @@ Analyse can be realized with Dependencies Viewer and sending to Dependencies Gra
 * Retrieve assemblies
 * Managed partial assembly (assembly not found during analysis)
 * Managed Software (assembly with a main method)
+* Authentication with keycloak
 
 ### Technical features:
 
@@ -30,34 +31,41 @@ Analyse can be realized with Dependencies Viewer and sending to Dependencies Gra
 * Swagger to view REST APIs
 * Docker
 
-## Packages
-
-This project generates two packages. They are available from the [packages][github-package] page.
-* docker container for APIs
-* NuGet package for DTO assemblies
-
 ### Docker container 
 
 This image is base on **Linux**. 
 
 You can configure container by setting environment variables.
 
-|   Configuration file  | Environment variable  |          Comment           |   default value     |
-| ----------------------|---------------------- | :--------------------------|-------------------- |
-| ForceHttpsRedirection | ForceHttpsRedirection | Activate https redirection | false               |
-| GraphConfig.Uri       | GraphConfig__Uri      | Uri for neo4j connection   | bolt://localhost    |
-| GraphConfig.User      | GraphConfig__User     | neo4j user                 |                     |
-| GraphConfig.Password  | GraphConfig__Password | neo4j user password        |                     |
+|   Configuration file         | Environment variable  |          Comment           |   default value     | Exemple |
+| -----------------------------|---------------------- | :--------------------------|-------------------- |---------|
+| ForceHttpsRedirection        | ForceHttpsRedirection | Activate https redirection | false               |         |
+| GraphConfig.Uri              | GraphConfig__Uri      | Uri for neo4j connection   | bolt://localhost    |         |
+| GraphConfig.User             | GraphConfig__User     | neo4j user                 |                     |         |
+| GraphConfig.Password         | GraphConfig__Password | neo4j user password        |                     |         |
+| Security.Enabled             | Security__Enabled     | Activate Authentication    | false               |         |
+| Security.Oidc.ClientId       | Security__Oidc__ClientId  | ClientId to validate token   |  graph-rest   |         |
+| Security.Oidc.Authority      | Security__Oidc__Authority  | Authority to validate token   |             |         |
+| Security.Swagger.ClientId    | Security__Swagger__ClientId  | ClientId to logon from swagger (default value)  |        |         |
+| Security.Swagger.ClientSecret| Security__Swagger__ClientSecret  | ClientSecret to logon from swagger (default value) |  |         |
+| Security.RoleMappings        | Security__RoleMappings  | Map keyclaok rights to application rights   |  | [ { \"Server\": \"read-serve\", \"App\": \"read\" } ] |
 
 Like all asp.net code applications, you can [customize host configuration][host-configuration-ms].
 
-Volumes exposed by container:
+#### Roles:
+
+|        Name        |       Secured routes      |
+| -------------------|------------------------- |
+| read               | /api/assembly/search, /api/assembly |
+| write              | /api/assembly/add       |
+
+#### Volumes exposed by container:
 
 |        Name        |       Description        |
 | -------------------|------------------------- |
 | logs               | Log files location       |
 
-Ports exposed by Container:
+#### Ports exposed by Container:
 
 |        Name        |       Description        |
 | -------------------|------------------------- |
@@ -88,17 +96,6 @@ docker run \
      --env ASPNETCORE_Kestrel__Certificates__Default__Path=/https/<certificate-name> \ 
      --volume <certificate-path>:/https/ \
      dependencies-graph-api:tag
-```
-
-### Nuget package
-
-This NuGet contains an assembly with all Data transfer objects (DTO). These classes are Plain Old C# Object (POCO) and no other dependencies.
-This package support Net Standard 2.1.
-
-You can install nuget package like this:
-
-```
-dotnet add package Dependencies.Graph.Dtos
 ```
 
 ## Development

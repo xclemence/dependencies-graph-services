@@ -20,7 +20,7 @@ namespace Dependencies.Graph.Api.Security
 
             if (!string.IsNullOrWhiteSpace(security.Value.RoleMappings))
             {
-                roleMappings = JsonSerializer.Deserialize<List<RoleMappingItem>>(security.Value.RoleMappings)
+                roleMappings = JsonSerializer.Deserialize<List<RoleMappingItem>>(security.Value.RoleMappings ?? string.Empty)
                                              .ToDictionary(x => x.Server);
             }
         }
@@ -55,7 +55,7 @@ namespace Dependencies.Graph.Api.Security
 
         private string GetApplicationRoleName(string name)
         {
-            if (roleMappings.ContainsKey(name))
+            if (roleMappings?.ContainsKey(name) ?? false)
                 return roleMappings[name].App;
 
             return name;
